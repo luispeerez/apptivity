@@ -37,7 +37,9 @@ import javax.swing.JScrollPane;
  */
 public class Principal extends javax.swing.JFrame {
 
-    static Statement st, stienda;    
+    static Statement st; 
+    static ResultSet Comando;
+    static Boolean estado_BotonPerfil = false;
     /**
      * Creates new form Principal
      */
@@ -46,9 +48,6 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Funcion.CrearConexion();
         st=Funcion.conexion();
-        //****Nueva Factura
-
-        //////////////////////////
     }
 
     /**
@@ -66,28 +65,39 @@ public class Principal extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(44, 44, 44));
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton4.setBackground(new java.awt.Color(44, 44, 44));
         jButton4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Administrar Usuarios");
+        jButton4.setText("Filtro de Dominios");
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton4.setContentAreaFilled(false);
         jButton4.setFocusPainted(false);
@@ -110,7 +120,7 @@ public class Principal extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(44, 44, 44));
         jButton5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Nueva Factura");
+        jButton5.setText("Perfil de Usuario");
         jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton5.setContentAreaFilled(false);
         jButton5.setFocusPainted(false);
@@ -136,7 +146,7 @@ public class Principal extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(44, 44, 44));
         jButton6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Consultar Facturas");
+        jButton6.setText("Usuarios Monitoreados");
         jButton6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton6.setContentAreaFilled(false);
         jButton6.setFocusPainted(false);
@@ -159,7 +169,7 @@ public class Principal extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(44, 44, 44));
         jButton7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Clientes Registrados");
+        jButton7.setText("Reporte General");
         jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jButton7.setContentAreaFilled(false);
         jButton7.setFocusPainted(false);
@@ -182,39 +192,128 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        jButton8.setBackground(new java.awt.Color(44, 44, 44));
+        jButton8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Configuración");
+        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jButton8.setContentAreaFilled(false);
+        jButton8.setFocusPainted(false);
+        jButton8.setOpaque(true);
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton8MouseExited(evt);
+            }
+        });
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 200, 70));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 650));
 
         jTabbedPane2.setBackground(java.awt.Color.white);
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jPanel2.setBackground(new java.awt.Color(243, 243, 243));
-        jPanel2.setLayout(null);
-
-        jLabel2.setText("Inicio");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(160, 80, 35, 17);
-
-        jTabbedPane2.addTab("tab1", jPanel2);
-
         jPanel3.setBackground(new java.awt.Color(243, 243, 243));
 
-        jLabel3.setText("Consultar");
+        jPanel9.setBackground(Color.white);
+        jPanel9.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel9.setEnabled(false);
+        jPanel9.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel9.setName(""); // NOI18N
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel7.setBackground(Color.white);
+        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel7.setEnabled(false);
+        jPanel7.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel7.setName(""); // NOI18N
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel8.setText("Nombre de Usuario:");
+        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel9.setText("Nick de Usuario:");
+        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 130, -1));
+
+        jTextField5.setEditable(false);
+        jTextField5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 320, 30));
+
+        jTextField10.setEditable(false);
+        jTextField10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel7.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 320, 30));
+
+        jLabel11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel11.setText("Ocupación:");
+        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jTextField6.setMaximumSize(new java.awt.Dimension(6, 24));
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 320, 30));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel12.setText("Contraseña:");
+        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+
+        jPasswordField1.setEditable(false);
+        jPasswordField1.setText("jPasswordField1");
+        jPanel7.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 320, -1));
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 255));
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton2.setText("Editar Datos");
+        jButton2.setFocusPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(256, 256, 256)
-                .addComponent(jLabel3)
-                .addContainerGap(547, Short.MAX_VALUE))
+            .addGap(0, 883, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(180, 180, 180)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(220, 220, 220)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jLabel3)
-                .addContainerGap(433, Short.MAX_VALUE))
+            .addGap(0, 646, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(40, 40, 40)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(30, 30, 30)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane2.addTab("tab2", jPanel3);
@@ -268,6 +367,25 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("tab4", jPanel5);
 
+        jPanel6.setBackground(new java.awt.Color(243, 243, 243));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 883, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 646, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("tab4", jPanel6);
+
+        jPanel2.setBackground(new java.awt.Color(243, 243, 243));
+        jPanel2.setLayout(null);
+        jTabbedPane2.addTab("tab1", jPanel2);
+
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 920, 650));
 
         pack();
@@ -278,6 +396,19 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(0);
         Color azul = new Color(0, 153, 255);
         jButton5.setBackground(azul);
+        
+        try {
+            Comando = Funcion.Select(st, "SELECT * FROM usuario_principal;");
+            while (Comando.next()) {
+                jTextField5.setText(String.valueOf(Comando.getObject("nombre_usuario")));
+                jTextField6.setText(String.valueOf(Comando.getObject("cargo_usuario")));
+                jTextField10.setText(String.valueOf(Comando.getObject("apodo_usuario")));
+                jPasswordField1.setText(String.valueOf(Comando.getObject("contrasena_usuario")));
+            }
+        } catch (Exception e) {
+        }
+        
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -450,6 +581,64 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setBackground(gris);
     }//GEN-LAST:event_jButton4MouseExited
 
+    private void jButton8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseEntered
+        // TODO add your handling code here:
+        Color azul = new Color(0, 182, 230);
+        jButton8.setBackground(azul);
+    }//GEN-LAST:event_jButton8MouseEntered
+
+    private void jButton8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseExited
+        // TODO add your handling code here:
+        Color gris = new Color(44, 44, 44);
+        jButton8.setBackground(gris);
+    }//GEN-LAST:event_jButton8MouseExited
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(4);
+        Color azul = new Color(0, 153, 255);
+        Color gris = new Color(44, 44, 44);
+        jButton8.setBackground(azul);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+        if(!estado_BotonPerfil){
+            jTextField5.setEditable(true);
+            jTextField6.setEditable(true);
+            jPasswordField1.setEditable(true);
+            jButton2.setText("Guardar Cambios");
+            estado_BotonPerfil = true;
+        }
+        else{
+            System.out.println("Dentro!!!");
+            if(jTextField5.getText().equalsIgnoreCase("") || jTextField6.getText().equalsIgnoreCase("") || jTextField10.getText().equalsIgnoreCase("") || jPasswordField1.getText().toString() != ""){
+                String actualizacion;
+                actualizacion = "UPDATE usuario_principal SET" +
+                        " nombre_usuario = '" + jTextField5.getText() + 
+                        "', cargo_usuario = '" + jTextField6.getText() + 
+                        "', apodo_usuario = '" + jTextField10.getText() + 
+                        "', contrasena_usuario = '" + jPasswordField1.getText() + 
+                        "' WHERE apodo_usuario = '" + jTextField10.getText() + "';";
+                Funcion.Update(st, actualizacion);
+                jTextField5.setEditable(false);
+                jTextField6.setEditable(false);
+                jPasswordField1.setEditable(false);
+                jButton2.setText("Editar Datos");  
+                estado_BotonPerfil = false;
+            }
+        }
+        }catch(Exception e){
+            
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 
@@ -495,21 +684,32 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
