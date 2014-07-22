@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
 public class Funcion {
     
    private static Connection conexion = null; 
-    private static String bd = "facturas"; // Nombre de BD. 
+    private static String bd = "apptivity"; // Nombre de BD. 
     private static String user = "root"; // Usuario de BD. 
-    private static String password = "12345"; // Password de BD. 
+    private static String password = "1234"; // Password de BD. 
     
     // Driver para MySQL en este caso. 
     private static String driver = "com.mysql.jdbc.Driver"; 

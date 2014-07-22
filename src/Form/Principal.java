@@ -5,11 +5,11 @@
  */
 package Form;
 
-import Clases.Variables;
 import Clases.NuevoPdf;
+import Clases.Variables;
 import MySQL.Funcion;
-import MySQL.FuncionTienda;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,22 +25,11 @@ import java.util.logging.Logger;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import org.icepdf.ri.common.*;
-import org.icepdf.ri.util.PropertiesManager;
+
 
 /**
  *
@@ -55,21 +44,10 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-        FuncionTienda.CrearConexion();
-        stienda = FuncionTienda.conexion();
         Funcion.CrearConexion();
         st=Funcion.conexion();
         //****Nueva Factura
-        jPanel7.setVisible(false);
-        jButton2.setVisible(false);
-        jButton8.setVisible(false);
-        jButton9.setVisible(false);
-        jButton10.setVisible(false);
-        jButton3.setVisible(false);
-        jButton11.setVisible(false);
-        jButton12.setVisible(false);
-        jButton13.setVisible(false);
-        jButton14.setVisible(false);
+
         //////////////////////////
     }
 
@@ -90,38 +68,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -233,7 +180,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 650));
 
@@ -243,243 +190,9 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setLayout(null);
 
-        jPanel6.setBackground(Color.white);
-        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel6.setText("Folio de Nota");
-
-        jLabel7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel7.setText("RFC:");
-
-        jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-
-        jTextField2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel6);
-        jPanel6.setBounds(80, 45, 423, 138);
-
-        jPanel7.setBackground(Color.white);
-        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.setEnabled(false);
-        jPanel7.setMaximumSize(new java.awt.Dimension(724, 278));
-        jPanel7.setName(""); // NOI18N
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel8.setText("RFC del contribuyente:");
-        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel9.setText("Direccion del contribuyente:");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-
-        jTextField3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 230, 253, 30));
-
-        jLabel10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel10.setText("Localidad:");
-        jPanel7.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
-
-        jTextField5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 485, 30));
-
-        jTextField10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 485, 30));
-
-        jLabel11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel11.setText("<html> Nombre o Razón social del<br> contribuyente:</html>");
-        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        jTextField6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jTextField6.setMaximumSize(new java.awt.Dimension(6, 24));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
-        jPanel7.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 485, 30));
-
-        jLabel12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel12.setText("Estado:");
-        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
-
-        jTextField7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 135, 30));
-
-        jLabel13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel13.setText("Codigo Postal:");
-        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 103, -1));
-
-        jTextField8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 181, 30));
-
-        jLabel14.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel14.setText("Correo electronico:");
-        jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 236, -1, -1));
-
-        jTextField9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 135, 30));
-
-        jLabel15.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel15.setText("Municipio:");
-        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
-
-        jTextField11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel7.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, 135, 30));
-
-        jPanel2.add(jPanel7);
-        jPanel7.setBounds(80, 260, 734, 290);
-
-        jButton2.setBackground(new java.awt.Color(0, 153, 255));
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton2.setText("Registrar Datos");
-        jButton2.setFocusPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2);
-        jButton2.setBounds(340, 560, 180, 43);
-
-        jButton8.setBackground(new java.awt.Color(0, 153, 255));
-        jButton8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton8.setText("Aceptar");
-        jButton8.setFocusPainted(false);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton8);
-        jButton8.setBounds(660, 90, 180, 43);
-
-        jButton9.setBackground(new java.awt.Color(0, 153, 255));
-        jButton9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton9.setText("Enviar");
-        jButton9.setFocusPainted(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton9);
-        jButton9.setBounds(660, 190, 180, 43);
-
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton1.setText("Validar Datos");
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(530, 90, 180, 43);
-
-        jButton10.setBackground(new java.awt.Color(0, 153, 255));
-        jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton10.setText("Guardar como...");
-        jButton10.setFocusPainted(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton10);
-        jButton10.setBounds(660, 240, 180, 43);
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 255));
-        jButton3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton3.setText("Editar datos");
-        jButton3.setFocusPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton3);
-        jButton3.setBounds(660, 410, 180, 43);
-
-        jButton11.setBackground(new java.awt.Color(0, 153, 255));
-        jButton11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton11.setText("Cancelar factura");
-        jButton11.setFocusPainted(false);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton11);
-        jButton11.setBounds(660, 460, 180, 43);
-
-        jButton12.setBackground(new java.awt.Color(0, 153, 255));
-        jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton12.setText("Cancelar");
-        jButton12.setFocusPainted(false);
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton12);
-        jButton12.setBounds(460, 560, 180, 43);
-
-        jButton13.setBackground(new java.awt.Color(0, 153, 255));
-        jButton13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton13.setText("Guardar Datos");
-        jButton13.setActionCommand("Guardar cambios");
-        jButton13.setFocusPainted(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton13);
-        jButton13.setBounds(240, 560, 180, 43);
-
-        jButton14.setBackground(new java.awt.Color(0, 153, 255));
-        jButton14.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton14.setText("Imprimir");
-        jButton14.setFocusPainted(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton14);
-        jButton14.setBounds(660, 140, 180, 43);
+        jLabel2.setText("Inicio");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(160, 80, 35, 17);
 
         jTabbedPane2.addTab("tab1", jPanel2);
 
@@ -494,7 +207,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(256, 256, 256)
                 .addComponent(jLabel3)
-                .addContainerGap(575, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,15 +298,16 @@ public class Principal extends javax.swing.JFrame {
         JLabel VERMAS = null;
         try {
             //Consultamos todos los clientes
-            ResultSet Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
+            //ResultSet Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
             /*while(Comandos.next()){
                 i++;
             }
             JLabel[] VERMAS = new JLabel[i];
             Funcion.CerrarConsulta(Comandos);*/
             //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
+            int cont = 0;
             //Ciclo para crear un panel para cada uno
-            while (Comandos.next()) {
+            while (i<10) {
                 //Creamos un panel con alineacion a la izquierda
                 JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                 jPanel8.add(Panel);
@@ -606,12 +320,12 @@ public class Principal extends javax.swing.JFrame {
                 Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
                 //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
                 //se pase a la siguiente linea y para el margen izquierdo
-                JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + Comandos.getString("RFC")));
-                JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + Comandos.getString("NombreCliente")));
-                JLabel Direccion = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Direccion: " + Comandos.getString("Direccion")));
-                JLabel Correo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Correo: " + Comandos.getString("correo")));
+                JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
+                JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + "Juan Camaney"));
+                JLabel Direccion = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Direccion: " + "Avenida Siempre Viva No 2"));
+                JLabel Correo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Correo: " + "hola@quehace.com"));
                 VERMAS = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:450px;'><u>Ver mas</u></div><html>", Panel.getWidth()));
-                VERMAS.setToolTipText(String.valueOf(Comandos.getInt("idCliente")));
+                VERMAS.setToolTipText(String.valueOf(i));
                 MouseListener ml = new MouseListener() {
                 @Override
                 public void mouseReleased(MouseEvent e) {
@@ -651,7 +365,8 @@ public class Principal extends javax.swing.JFrame {
                 Correo.setFont(new Font("Verdana", Font.PLAIN, 13));
                 Correo.setForeground(gris);
                 VERMAS.setFont(new Font("Verdana", Font.PLAIN, 13));
-                VERMAS.setForeground(azul);
+                VERMAS.setForeground(azul);                
+                VERMAS.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 //Añadimos los label al panel correspondiente del cliente
                 Panel.add(RFC);
                 Panel.add(Nombre);
@@ -660,7 +375,7 @@ public class Principal extends javax.swing.JFrame {
                 Panel.add(VERMAS);
                 i++;
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
@@ -675,47 +390,7 @@ public class Principal extends javax.swing.JFrame {
         Color azul = new Color(0, 153, 255);
         Color gris = new Color(44, 44, 44);
         jButton4.setBackground(azul);
-        int i = 0;
-        int Altura = 0;
-        try {
-            //Consultamos todos los clientes
-            ResultSet Comandos = Funcion.Select(st, "SELECT * FROM usuarios where id>1;");
-            //Ciclo para crear un panel para cada uno
-            while (Comandos.next()) {
-                //Creamos un panel con alineacion a la izquierda
-                JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                jPanel5.add(Panel);
-                //Tamaño del panel
-                Panel.setSize(700, 120);
-                // La posicion y del panel ira incrementando para que no se encimen
-                Altura = 30 + (i * 130);
-                Panel.setLocation(50, Altura);
-                Panel.setBackground(Color.white);
-                Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
-                //se pase a la siguiente linea y para el margen izquierdo
-                JLabel ID = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "ID: " + Comandos.getString("id")));
-                JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + Comandos.getString("Nombre")));
-                JLabel Contrasena = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Contraseña: " + Comandos.getString("Contrasena")));
-                //Fuente del texto
-                ID.setFont(new Font("Verdana", Font.PLAIN, 13));
-                ID.setForeground(gris);
-                Nombre.setFont(new Font("Verdana", Font.PLAIN, 13));
-                Nombre.setForeground(gris);
-                Contrasena.setFont(new Font("Verdana", Font.PLAIN, 13));
-                Contrasena.setForeground(gris);
-                //Añadimos los label al panel correspondiente del cliente
-                Panel.add(ID);
-                Panel.add(Nombre);
-                Panel.add(Contrasena);
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
-        jPanel5.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 150));
-              
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
@@ -774,422 +449,13 @@ public class Principal extends javax.swing.JFrame {
         Color gris = new Color(44, 44, 44);
         jButton4.setBackground(gris);
     }//GEN-LAST:event_jButton4MouseExited
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //*******************Button Validar datos ***************************//   
-    static int idclientes = 0,idnota = 0;
-    static ResultSet Comandos, Comando , Comandoventas;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         
-        if (jTextField1.getText().equalsIgnoreCase("") || jTextField2.getText().equalsIgnoreCase("")) {
-            Object[] options = {"Aceptar"};
-            JOptionPane.showOptionDialog(null, "¡Datos incompletos", "Aviso",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                    null, options, options[0]);
-        } else {
-            try {
-                Comandos = Funcion.Select(st, "Select *from cliente WHERE RFC='" + jTextField2.getText() + "';");// Consulta el RFC
-                while (Comandos.next()) {
-                    idclientes = Integer.parseInt(Comandos.getObject("idCliente") + "");
-                    Variables.setIdCliente(idclientes);
-                }
-                //Funcion.CerrarConsulta(Comandos);
-                if (idclientes > 0) {
-                    Comando = FuncionTienda.Select(stienda, "Select *from nota WHERE folio_nota=" + jTextField1.getText() + ";"); // Consulta la nota
-                    while (Comando.next()) {
-                        idnota = Integer.parseInt(Comando.getObject("folio_nota") + "");
-                    }
-                    //FuncionTienda.CerrarConsulta(Comando);
-                    if (idnota > 0) {
-                        jButton8.setVisible(true);
-                        jButton9.setVisible(true);
-                        jButton10.setVisible(true);
-                        jButton3.setVisible(true);
-                        jButton11.setVisible(true);
-                        jButton14.setVisible(true);
-                        jButton1.setVisible(false);
-                        jPanel6.setVisible(false);
-                        jPanel7.setVisible(false);
-                        //Metodo para generar factura
-                        factura();
-                        CrearPanelPDF();
-    
-                    } else {
-                        JOptionPane.showMessageDialog(null, "¡La nota no existe!");
-                    }
 
-                } else {
-                    jPanel7.setVisible(true);
-                    jTextField5.setEditable(true);
-                    jButton2.setVisible(true);
-                }
-            } catch (Exception ex) {
-               //JOptionPane.showMessageDialog(this, "Error en los datos");
-                System.out.println(ex.getMessage());
-            }
-
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//*** Crear facturaPDF
-    public void factura() {
-        try {
-            Comandos = Funcion.Select(st, "Select *from cliente WHERE RFC='" + jTextField2.getText() + "';");// Consulta el RFC
 
-            while (Comandos.next()) {
-                Variables.RFC = ((String) Comandos.getObject("RFC"));
-                Variables.NombreCliente = ((String) Comandos.getObject("NombreCliente"));
-                Variables.Direccion = ((String) Comandos.getObject("Direccion"));
-                Variables.delegacion = ((String) Comandos.getObject("Localidad"));
-                Variables.municipio = ((String) Comandos.getObject("municipio"));
-                Variables.Estado = ((String) Comandos.getObject("Estado"));
-                Variables.codpostal = (Integer.parseInt(Comandos.getObject("codpostal") + ""));
-                Variables.Correo = ((String) Comandos.getObject("correo"));
-            }
-            //Funcion.CerrarConsulta(Comandos);
-
-            Comando = FuncionTienda.Select(stienda, "Select *from nota WHERE folio_nota=" + jTextField1.getText() + ";"); // Consulta la nota
-
-            while (Comando.next()) {
-                Variables.suma = ((Double) Double.parseDouble(Comando.getObject("suma") + ""));
-                Variables.descuento = ((Double) Double.parseDouble(Comando.getObject("descuento") + ""));
-                Variables.subtotal = ((Double) Double.parseDouble(Comando.getObject("subtotal") + ""));
-                Variables.iva = ((Double) Double.parseDouble(Comando.getObject("iva") + ""));
-                Variables.total = ((Double) Double.parseDouble(Comando.getObject("total") + ""));
-                System.out.println("Total : " + Variables.getTotal());
-            }
-            //FuncionTienda.CerrarConsulta(Comando);
-
-            Comandoventas = FuncionTienda.Select(stienda, "Select *from venta WHERE clave_nota="
-                    + idnota + ";");
-            while (Comandoventas.next()) {
-                Variables.claves.add(Integer.parseInt(Comandoventas.getObject("clave") + ""));
-                Variables.cantidades.add(Integer.parseInt(Comandoventas.getObject("cantidad") + ""));
-                Variables.preciosunitarios.add(Double.parseDouble(Comandoventas.getObject("precio_unitario") + ""));
-                Variables.importes.add(Double.parseDouble(Comandoventas.getObject("importe") + ""));
-                Variables.descripciones.add((String) Comandoventas.getObject("Descripcion"));
-                Variables.ums.add((String) Comandoventas.getObject("unidad_de_medida"));
-            }
-
-            //FuncionTienda.CerrarConsulta(Comandoventas);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-    JPanel Panelpdf;
-    JScrollPane scrollcuadro;
-
-    public void CrearPanelPDF() {
-        Panelpdf=null;
-        scrollcuadro=null;
-        Panelpdf = new JPanel();
-        scrollcuadro = new JScrollPane();
-        NuevoPdf pdf = new NuevoPdf("Factura.pdf");
-        pdf.main();
-        scrollcuadro.setSize(630, 600);
-        scrollcuadro.setLocation(20, 30);
-        //Tamaño del panel
-        Panelpdf.setSize(1000, 700);
-        // La posicion y del panel ira incrementando para que no se encimen
-        Panelpdf.setBackground(Color.white);
-        Panelpdf.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        String filePath = "Factura.pdf";
-
-// build a controller
-        SwingController controller = new SwingController();
-        PropertiesManager properties = new PropertiesManager(System.getProperties(), ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
-//properties.setBoolean(PropertiesManager.PROPERTY_VIEWPREF_HIDETOOLBAR, Boolean.TRUE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_PRINT, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_SEARCH, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_OPEN, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_FIT, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_ROTATE, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_PAGENAV, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_SAVE, Boolean.FALSE);
-        properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_UPANE, Boolean.FALSE);
-
-//properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_TOOL, Boolean.TRUE);
-//properties.setDouble(PropertiesManager.PROPERTY_DEFAULT_ZOOM_LEVEL, 1.05);
-//properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_ANNOTATION, Boolean.FALSE); 
-//properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_FIT, Boolean.FALSE);
-// Build a SwingViewFactory configured with the controller
-        SwingViewBuilder factory = new SwingViewBuilder(controller, properties);
-
-// Use the factory to build a JPanel that is pre-configured
-//with a complete, active Viewer UI.
-        JPanel viewerComponentPanel = factory.buildViewerPanel();
-
-// add copy keyboard command
-        ComponentKeyBinding.install(controller, viewerComponentPanel);
-
-// add interactive mouse link annotation support via callback
-        controller.getDocumentViewController().setAnnotationCallback(
-                new org.icepdf.ri.common.MyAnnotationCallback(
-                        controller.getDocumentViewController()));
-// Create a JFrame to display the panel in
-
-        Panelpdf.add(viewerComponentPanel);
-        /*this.getContentPane().add(Panel);
-         this.pack();
-         this.setVisible(true);
-         */
-// Open a PDF document to view
-        scrollcuadro.add(Panelpdf);
-        scrollcuadro.setViewportView(Panelpdf);
-        controller.openDocument(filePath);
-        jPanel2.add(scrollcuadro);
-
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-
-    //********************Button Registrar Clientes
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            String Comando = null;
-            if (jTextField3.getText().equalsIgnoreCase("")|| jTextField5.getText().equalsIgnoreCase("")|| 
-            jTextField6.getText().equalsIgnoreCase("") || jTextField7.getText().equalsIgnoreCase("") || 
-            jTextField8.getText().equalsIgnoreCase("") || jTextField9.getText().equalsIgnoreCase("") || 
-            jTextField10.getText().equalsIgnoreCase("")|| jTextField11.getText().equalsIgnoreCase("")){   
-                Object[] options = {"Aceptar"};
-                JOptionPane.showOptionDialog(null, "¡Datos incompletos", "Aviso",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, options, options[0]);
-            } else {
-                Comando = "INSERT INTO cliente VALUES (default,'" + jTextField5.getText() + "','"
-                        + jTextField6.getText() + "','" + jTextField10.getText() + "','"
-                        + jTextField9.getText() + "','" + jTextField7.getText()
-                        + "'," + jTextField8.getText() + ",'" + jTextField3.getText() + "','"
-                        + jTextField11.getText() + "'); ";
-                Funcion.Update(st, Comando);
-                //*******Limpiar
-                jTextField5.setText("");
-                jTextField6.setText("");
-                jTextField10.setText("");
-                jTextField8.setText("");
-                jTextField9.setText("");
-                jTextField7.setText("");
-                jTextField3.setText("");
-                jTextField11.setText("");
-                jPanel7.setVisible(false);
-                jButton2.setVisible(false);
-                jPanel6.setVisible(false);
-                jButton1.setVisible(false);
-
-                Object[] options = {"Aceptar"};
-                JOptionPane.showOptionDialog(null, "¡Exito!", "Nuevo cliente",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, options, options[0]);
-
-                jButton8.setVisible(true);
-                jButton14.setVisible(true);
-                jButton9.setVisible(true);
-                jButton10.setVisible(true);
-                jButton3.setVisible(true);
-                jButton11.setVisible(true);
-
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en los datos");
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
-    //******************* EDITAR DATOS *******************
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            jButton14.setVisible(false);
-            scrollcuadro.setVisible(false);
-            jButton2.setVisible(false);
-            jButton8.setVisible(false);
-            jButton9.setVisible(false);
-            jButton10.setVisible(false);
-            jButton3.setVisible(false);
-            jButton11.setVisible(false);
-            jButton12.setVisible(true);
-            jButton13.setVisible(true);
-            jPanel7.setVisible(true);
-            jTextField5.setEditable(false);
-            jTextField5.setText(Variables.RFC);
-            jTextField6.setText(Variables.NombreCliente);
-            jTextField10.setText(Variables.Direccion);
-            jTextField7.setText(Variables.Estado);
-            jTextField9.setText(Variables.municipio);
-            jTextField11.setText(Variables.delegacion);
-            jTextField8.setText("" + Variables.codpostal);
-            jTextField3.setText(Variables.Correo);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-////////////////////////////////////////////////////////////////////////////////////
-/////////////////********** Boton de agregar la factura    
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        try{
-            String folio_fiscal = "1GR523GTEDQY";
-            String serie_csd = "GHVN24501JKTU1";
-            String lugar = "Cancun Quintana Roo, Mexico";
-            String serie = "5E34";
-            String observaciones = "";
-            String Comando = null;
-            Comando = "INSERT INTO factura_emitida (idCliente,Folio_Fiscal,SerieCSD,FechaEmision,Lugar,Folio,Serie,Observaciones) "
-                    + "VALUES ("+ Variables.getIdCliente() +","
-                    + "'" + folio_fiscal+" ' ,"
-                    + "'" + serie_csd + " ' ,"
-                    + "'" + Variables.getFechaFactura() +  " ' ,"
-                    + "'" + lugar + " ' ,"
-                    + idnota + ","  
-                    + "'" + serie + " ' ," 
-                    + "'" + observaciones  + " ' "                   
-                    +" )";
-            //Funcion.Update(st, Comando);
-            JOptionPane.showConfirmDialog(null, "Factura creada");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-////////////////////////////////////////////////////////////////////////////////////
-///////////////*************Boton de enviar por correo ******************
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-        String Para = ""; //Correo al que mandaremos la factura
-        String De = ""; //Correo del que enviaremos la factura, tiene que ser @gmail.com
-        String Contrasena = ""; //Contraseña de ese correo
-        Properties Propiedades = new Properties();
-        Propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
-        Propiedades.setProperty("mail.smtp.starttls.enable", "true");
-        Propiedades.setProperty("mail.smtp.port", "587");
-        Propiedades.setProperty("mail.smtp.user", De);
-        Propiedades.setProperty("mail.smtp.auth", "true");
-        Session Sesion = Session.getDefaultInstance(Propiedades);
-        try{
-            MimeMessage Mensaje  = new MimeMessage(Sesion);
-            Mensaje.setFrom(new InternetAddress(De));
-            Mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(Para));
-            Mensaje.setSubject("Factura");
-            BodyPart ContenidoMensaje = new MimeBodyPart();
-            ContenidoMensaje.setText("Aqui esta su factura. Gracias por su preferencia.");
-            Multipart Multi = new MimeMultipart();
-            Multi.addBodyPart(ContenidoMensaje);
-            ContenidoMensaje = new MimeBodyPart();
-            String Ruta = "Factura.pdf";
-            DataSource Adjunto = new FileDataSource(Ruta);
-            ContenidoMensaje.setDataHandler(new DataHandler(Adjunto));
-            ContenidoMensaje.setFileName(Ruta);
-            Multi.addBodyPart(ContenidoMensaje);
-            Mensaje.setContent(Multi);
-            Transport Enviar = Sesion.getTransport("smtp");
-            Enviar.connect(De, Contrasena);
-            Enviar.sendMessage(Mensaje, Mensaje.getAllRecipients());
-            System.out.println("Mensaje Enviado Correctamente...");
-        }
-        catch(MessagingException ex){
-            System.out.println("Ha ocurrido un error al enviar el mensaje...       "+ ex);
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-//**********************Guardar la facutura ***************************
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-  
-        Variables.guardar=true;
-        NuevoPdf.main();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
-    //************** Cancelar Cambios en los datos del Cliente 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        scrollcuadro.setVisible(true);
-        jButton2.setVisible(false);
-        jButton8.setVisible(true);
-        jButton14.setVisible(true);
-        jButton9.setVisible(true);
-        jButton10.setVisible(true);
-        jButton3.setVisible(true);
-        jButton11.setVisible(true);
-        jButton12.setVisible(false);
-        jButton13.setVisible(false);
-        jPanel7.setVisible(false);
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-    //************** Guardar Cambios en los datos del Cliente 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-            String Comando = null;
-            if (jTextField3.getText().equalsIgnoreCase("") || jTextField5.getText().equalsIgnoreCase("")
-                    || jTextField6.getText().equalsIgnoreCase("") || jTextField7.getText().equalsIgnoreCase("")
-                    || jTextField8.getText().equalsIgnoreCase("") || jTextField9.getText().equalsIgnoreCase("")
-                    || jTextField10.getText().equalsIgnoreCase("") || jTextField11.getText().equalsIgnoreCase("")) {
-                Object[] options = {"Aceptar"};
-                JOptionPane.showOptionDialog(null, "¡Datos incompletos", "Aviso",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, options, options[0]);
-            } else {
-                Variables.NombreCliente = jTextField6.getText();
-                Variables.Direccion = jTextField10.getText();
-                Variables.Estado = jTextField7.getText();
-                Variables.municipio = jTextField9.getText();
-                Variables.delegacion = jTextField11.getText();
-                Variables.Correo = jTextField3.getText();
-                Variables.codpostal = Integer.parseInt(jTextField8.getText());
-
-                Comando = "UPDATE cliente SET NombreCliente='" + jTextField6.getText() + "',Direccion='"
-                        + jTextField10.getText() + "',Estado='" + jTextField7.getText() + "',Municipio='"
-                        + jTextField9.getText() + "',Localidad='" + jTextField11.getText()
-                        + "',codPostal=" + jTextField8.getText() + ",correo='" + jTextField3.getText()
-                        + "' WHERE idCliente=" + Variables.idCliente + ";";
-                Funcion.Update(st, Comando);
-
-                //*******Limpiar
-                jTextField5.setText("");
-                jTextField6.setText("");
-                jTextField10.setText("");
-                jTextField8.setText("");
-                jTextField9.setText("");
-                jTextField7.setText("");
-                jTextField3.setText("");
-                jTextField11.setText("");
-                jPanel7.setVisible(false);
-                jButton2.setVisible(false);
-                jPanel6.setVisible(false);
-                jButton1.setVisible(false);
-                jButton12.setVisible(false);
-                jButton13.setVisible(false);
- 
-                jButton14.setVisible(true);
-                jButton8.setVisible(true);
-                jButton9.setVisible(true);
-                jButton10.setVisible(true);
-                jButton3.setVisible(true);
-                jButton11.setVisible(true);
-                CrearPanelPDF();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
-            System.out.print(e.getMessage());
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
 
 //////////////////////////////////////////////////////////////////////////////////////
     
@@ -1229,52 +495,21 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

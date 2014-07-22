@@ -24,15 +24,28 @@ public class Verificar {
         try {
             Funcion.CrearConexion();
             st = Funcion.conexion();
-            ResultSet resultadosConsulta = Funcion.Select(st, "SELECT *FROM usuarios WHERE nombre='" + elUsr + "' AND contrasena='" + elPw + "'");
-
+            boolean estaValidado = false;
+            //Verificando si es un usuario admin
+            ResultSet resultadosConsulta = Funcion.Select(st, "SELECT *FROM usuario_principal WHERE apodo_usuario='" + elUsr + "' AND contrasena_usuario='" + elPw + "'");
             if (resultadosConsulta.first()) {        // si es valido el primer reg. hay una fila, entonces el usuario y su pw existen
                 Variables.setIdUsuario(resultadosConsulta.getInt("id"));
                 return true;        //usuario validado correctamente
 
             } else {
-                return false;        //usuario validado incorrectamente
+                estaValidado =  false;        //usuario validado incorrectamente
             }
+            //Si no se encontro como usuario principal buscar en secundarios
+            ResultSet resultadosConsultaSecundarios = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE apodo_usuario='" + elUsr + "' AND contrasena_usuario='" + elPw + "'");
+            if (resultadosConsultaSecundarios.first()) {        // si es valido el primer reg. hay una fila, entonces el usuario y su pw existen
+                Variables.setIdUsuario(resultadosConsultaSecundarios.getInt("id"));
+                return true;        //usuario validado correctamente
+
+            } else {
+                estaValidado =  false;        //usuario validado incorrectamente
+            }
+            
+            return estaValidado;
+            
         } catch (Exception e) {
             return false;
         }
