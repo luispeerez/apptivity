@@ -15,12 +15,17 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -28,9 +33,10 @@ import javax.swing.JPanel;
  */
 public class Principal extends javax.swing.JFrame {
 
-    static Statement st; 
+    static Statement st;
     static ResultSet Comando;
-    static Boolean estado_BotonPerfil = false;
+    static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
+
     /**
      * Creates new form Principal
      */
@@ -38,7 +44,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         Funcion.CrearConexion();
-        st=Funcion.conexion();
+        st = Funcion.conexion();
     }
 
     /**
@@ -78,6 +84,40 @@ public class Principal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jTextField12 = new javax.swing.JTextField();
+        jPanel11 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTextField17 = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jPasswordField2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -373,10 +413,195 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 646, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("tab4", jPanel6);
+        jTabbedPane2.addTab("filtro", jPanel6);
 
         jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setLayout(null);
+
+        jPanel12.setBackground(Color.white);
+        jPanel12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel12.setEnabled(false);
+        jPanel12.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel12.setName(""); // NOI18N
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel20.setText("Usuario:");
+        jPanel12.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+
+        jComboBox5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox5ItemStateChanged(evt);
+            }
+        });
+        jPanel12.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 200, 30));
+
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
+        jPanel12.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 200, 30));
+
+        jLabel18.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel18.setText("Departamento:");
+        jPanel12.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel19.setText("Nuevo nombre:");
+        jPanel12.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+
+        jTextField12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel12.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 320, -1));
+
+        jPanel2.add(jPanel12);
+        jPanel12.setBounds(70, 330, 670, 70);
+
+        jPanel11.setBackground(Color.white);
+        jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel11.setEnabled(false);
+        jPanel11.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel11.setName(""); // NOI18N
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jPanel11.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 200, 30));
+
+        jLabel15.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel15.setText("Seleccionar:");
+        jPanel11.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel16.setText("Nuevo nombre:");
+        jPanel11.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+
+        jTextField11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel11.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 320, -1));
+
+        jPanel2.add(jPanel11);
+        jPanel11.setBounds(70, 70, 360, 70);
+
+        jPanel10.setBackground(Color.white);
+        jPanel10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel10.setEnabled(false);
+        jPanel10.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel10.setName(""); // NOI18N
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel10.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 320, 30));
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel13.setText("Nombre del Departamento:");
+        jPanel10.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setText("Nuevo nombre:");
+        jPanel10.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, -1));
+
+        jTextField8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel10.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 320, -1));
+
+        jPanel2.add(jPanel10);
+        jPanel10.setBounds(70, 160, 610, 70);
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel10.setText("Administración de Usuarios.");
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(70, 290, 350, 23);
+
+        jButton3.setBackground(new java.awt.Color(0, 153, 255));
+        jButton3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton3.setText("Agregar");
+        jButton3.setFocusPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3);
+        jButton3.setBounds(720, 180, 100, 30);
+
+        jButton10.setBackground(new java.awt.Color(0, 153, 255));
+        jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton10.setText("Eliminar");
+        jButton10.setFocusPainted(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10);
+        jButton10.setBounds(720, 230, 100, 30);
+
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel17.setText("Administración de Departamentos.");
+        jPanel2.add(jLabel17);
+        jLabel17.setBounds(70, 30, 390, 23);
+
+        jPanel13.setBackground(Color.white);
+        jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel13.setEnabled(false);
+        jPanel13.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel13.setName(""); // NOI18N
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel21.setText("Departamento:");
+        jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 130, -1));
+
+        jLabel22.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel22.setText("Cargo:");
+        jPanel13.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel23.setText("Contraseña:");
+        jPanel13.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, -1, -1));
+
+        jTextField9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel13.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 450, 30));
+
+        jTextField13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel13.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 170, 30));
+
+        jLabel25.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel25.setText("Horario de Salida:");
+        jPanel13.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 140, -1));
+
+        jTextField17.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel13.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 170, 30));
+
+        jLabel28.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel28.setText("Usuario:");
+        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel29.setText("Nombre Empleado:");
+        jPanel13.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jComboBox4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox4ItemStateChanged(evt);
+            }
+        });
+        jPanel13.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 200, 30));
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        jPanel13.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 170, -1));
+        jPanel13.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
+
+        jPanel2.add(jPanel13);
+        jPanel13.setBounds(70, 420, 670, 190);
+
         jTabbedPane2.addTab("tab1", jPanel2);
 
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 920, 650));
@@ -389,7 +614,7 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(0);
         Color azul = new Color(0, 153, 255);
         jButton5.setBackground(azul);
-        
+
         try {
             Comando = Funcion.Select(st, "SELECT * FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
             while (Comando.next()) {
@@ -401,8 +626,8 @@ public class Principal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -413,7 +638,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
         int i = 0;
         int Altura = 0;
         Color gris = new Color(44, 44, 44);
@@ -425,14 +650,14 @@ public class Principal extends javax.swing.JFrame {
             //Consultamos todos los clientes
             //ResultSet Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
             /*while(Comandos.next()){
-                i++;
-            }
-            JLabel[] VERMAS = new JLabel[i];
-            Funcion.CerrarConsulta(Comandos);*/
+             i++;
+             }
+             JLabel[] VERMAS = new JLabel[i];
+             Funcion.CerrarConsulta(Comandos);*/
             //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
             int cont = 0;
             //Ciclo para crear un panel para cada uno
-            while (i<10) {
+            while (i < 10) {
                 //Creamos un panel con alineacion a la izquierda
                 JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
                 jPanel8.add(Panel);
@@ -445,57 +670,59 @@ public class Principal extends javax.swing.JFrame {
                 Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
                 //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
                 //se pase a la siguiente linea y para el margen izquierdo
-                JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
+                
+                //JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
                 JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + "Juan Camaney"));
-                JLabel Direccion = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Direccion: " + "Avenida Siempre Viva No 2"));
+                //JLabel Direccion = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Direccion: " + "Avenida Siempre Viva No 2"));
                 JLabel Correo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Correo: " + "hola@quehace.com"));
+                
                 VERMAS = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:450px;'><u>Ver mas</u></div><html>", Panel.getWidth()));
                 VERMAS.setToolTipText(String.valueOf(i));
                 MouseListener ml = new MouseListener() {
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    //System.out.println("Released!");
-                }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        //System.out.println("Released!");
+                    }
 
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    //System.out.println("Pressed!");
-                }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        //System.out.println("Pressed!");
+                    }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    //System.out.println("Exited!");
-                }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        //System.out.println("Exited!");
+                    }
 
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    //System.out.println("Entered!");
-                }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        //System.out.println("Entered!");
+                    }
 
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JLabel source = (JLabel) e.getSource();
-                    System.out.println(source.getToolTipText());
-                    
-                }
-        };
-        VERMAS.addMouseListener(ml);
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JLabel source = (JLabel) e.getSource();
+                        System.out.println(source.getToolTipText());
+
+                    }
+                };
+                VERMAS.addMouseListener(ml);
 //Fuente del texto
-                RFC.setFont(new Font("Verdana", Font.PLAIN, 13));
-                RFC.setForeground(gris);
+                //RFC.setFont(new Font("Verdana", Font.PLAIN, 13));
+                //RFC.setForeground(gris);
                 Nombre.setFont(new Font("Verdana", Font.PLAIN, 13));
                 Nombre.setForeground(gris);
-                Direccion.setFont(new Font("Verdana", Font.PLAIN, 13));
-                Direccion.setForeground(gris);
+                //Direccion.setFont(new Font("Verdana", Font.PLAIN, 13));
+                //Direccion.setForeground(gris);
                 Correo.setFont(new Font("Verdana", Font.PLAIN, 13));
                 Correo.setForeground(gris);
                 VERMAS.setFont(new Font("Verdana", Font.PLAIN, 13));
-                VERMAS.setForeground(azul);                
+                VERMAS.setForeground(azul);
                 VERMAS.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 //Añadimos los label al panel correspondiente del cliente
-                Panel.add(RFC);
+                //Panel.add(RFC);
                 Panel.add(Nombre);
-                Panel.add(Direccion);
+                //Panel.add(Direccion);
                 Panel.add(Correo);
                 Panel.add(VERMAS);
                 i++;
@@ -507,8 +734,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel8.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 150));
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(3);
@@ -518,8 +744,6 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    
-    
 //***************Buton  nueva Factura**********************************//////////////
     private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
         // TODO add your handling code here:
@@ -592,55 +816,187 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(4);
         Color azul = new Color(0, 153, 255);
         Color gris = new Color(44, 44, 44);
-        jButton8.setBackground(azul);
+        //jFormattedTextField1.setFormatterFactory();
+        
+        //jButton8.setBackground(azul);
+        jButton10.setVisible(false);
+        if(jComboBox1.getItemCount()<= 0){
+            jComboBox1.insertItemAt("", 0);
+            jComboBox2.insertItemAt("", 0);
+            jComboBox4.insertItemAt("", 0);
+            try {
+                Comando = Funcion.Select(st, "SELECT * FROM areas;");
+                while (Comando.next()) {
+                    jComboBox1.addItem(String.valueOf(Comando.getObject("nombre_area")));
+                    jComboBox2.addItem(String.valueOf(Comando.getObject("nombre_area")));
+                    jComboBox4.addItem(String.valueOf(Comando.getObject("nombre_area")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            jComboBox1.setSelectedIndex(0);
+            jComboBox2.setSelectedIndex(0);
+            jComboBox4.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try{
-        if(!estado_BotonPerfil){
-            jTextField5.setEditable(true);
-            jTextField6.setEditable(true);
-            jPasswordField1.setEditable(true);
-            jButton2.setText("Guardar Cambios");
-            estado_BotonPerfil = true;
-        }
-        else{
-            if(jTextField5.getText().equalsIgnoreCase("") || jTextField6.getText().equalsIgnoreCase("") || jTextField10.getText().equalsIgnoreCase("") || jPasswordField1.getText().toString() != ""){
-                String actualizacion;
-                actualizacion = "UPDATE usuario_principal SET" +
-                        " nombre_usuario = '" + jTextField5.getText() + 
-                        "', cargo_usuario = '" + jTextField6.getText() + 
-                        "', apodo_usuario = '" + jTextField10.getText() + 
-                        "', contrasena_usuario = '" + jPasswordField1.getText() + 
-                        "' WHERE apodo_usuario = '" + jTextField10.getText() + "';";
-                Funcion.Update(st, actualizacion);
-                jTextField5.setEditable(false);
-                jTextField6.setEditable(false);
-                jPasswordField1.setEditable(false);
-                jButton2.setText("Editar Datos");  
-                estado_BotonPerfil = false;
+        try {
+            if (!estado_BotonPerfil) {
+                jTextField5.setEditable(true);
+                jTextField6.setEditable(true);
+                jPasswordField1.setEditable(true);
+                jButton2.setText("Guardar Cambios");
+                estado_BotonPerfil = true;
+            } else {
+                if (jTextField5.getText().equalsIgnoreCase("") || jTextField6.getText().equalsIgnoreCase("") || jTextField10.getText().equalsIgnoreCase("") || jPasswordField1.getText().toString() != "") {
+                    String actualizacion;
+                    actualizacion = "UPDATE usuario_principal SET"
+                            + " nombre_usuario = '" + jTextField5.getText()
+                            + "', cargo_usuario = '" + jTextField6.getText()
+                            + "', apodo_usuario = '" + jTextField10.getText()
+                            + "', contrasena_usuario = '" + jPasswordField1.getText()
+                            + "' WHERE apodo_usuario = '" + jTextField10.getText() + "';";
+                    Funcion.Update(st, actualizacion);
+                    jTextField5.setEditable(false);
+                    jTextField6.setEditable(false);
+                    jPasswordField1.setEditable(false);
+                    jButton2.setText("Editar Datos");
+                    estado_BotonPerfil = false;
+                }
             }
+        } catch (Exception e) {
+
         }
-        }catch(Exception e){
-            
-        }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            if (estado_BotonDepa == false) {
+                if (jButton3.getText().equals("Agregar")) {
+                    Comando = Funcion.Select(st, "SELECT * FROM areas;");
+                    while (Comando.next()) {
+                        if (jTextField7.getText().equals(String.valueOf(Comando.getObject("nombre_area"))) && !jTextField7.getText().equals("")) {
+                            jButton3.setText("Modificar");
+                            jPanel10.setSize(610, 120);
+                            jButton10.setVisible(true);
+                            jTextField8.setText("");
+                            jTextField7.setEditable(false);
+                            estado_BotonDepa = true;
+                        }
+                    }
+                    if (jButton3.getText().equals("Agregar")) {
+                        String insercion;
+                        insercion = "INSERT INTO areas VALUES ('"
+                                + jTextField7.getText() + "', " //nombre del area
+                                + 0 + "); "; //numero integrantes
+                        Funcion.Update(st, insercion);
+                        jComboBox1.addItem(jTextField7.getText());
+                        jComboBox2.addItem(jTextField7.getText());
+                        jComboBox4.addItem(jTextField7.getText());
+                        jTextField7.setText("");
+                    }
+                }
+            } else {
+                String actualizacion;
+                actualizacion = "UPDATE areas SET"
+                        + " nombre_area = '" + jTextField8.getText()
+                        + "' WHERE nombre_area = '" + jTextField7.getText() + "';";
+                Funcion.Update(st, actualizacion);
+                jButton3.setText("Agregar");
+                jPanel10.setSize(610, 70);
+                jTextField7.setText("");
+                jTextField7.setEditable(true);
+                jButton10.setVisible(false);
+                estado_BotonDepa = false;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        String eliminacion;
+        eliminacion = "DELETE FROM areas"
+                + " WHERE nombre_area = '" + jTextField7.getText() + "';";
+        Funcion.Update(st, eliminacion);
+        jPanel10.setSize(610, 70);
+        jTextField7.setText("");
+        jTextField7.setEditable(true);
+        jButton10.setVisible(false);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        if (jComboBox1.getSelectedItem() != "") {
+            jTextField7.setText(jComboBox1.getSelectedItem().toString());
+            jButton3.setText("Modificar");
+            jPanel10.setSize(610, 120);
+            jButton10.setVisible(true);
+            jTextField8.setText("");
+            jTextField7.setEditable(false);
+            estado_BotonDepa = true;
+        } else {
+            jButton3.setText("Agregar");
+            jPanel10.setSize(610, 70);
+            jTextField7.setText("");
+            jTextField7.setEditable(true);
+            jButton10.setVisible(false);
+            estado_BotonDepa = false;
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        // TODO add your handling code here:
+        if(jComboBox2.getSelectedItem() != ""){
+            try {
+                jComboBox5.removeAllItems();
+                Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "';");
+                jComboBox5.addItem("");
+                while (Comando.next()) {
+                    jComboBox5.addItem(String.valueOf(Comando.getObject("nombre_usuario")));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
+    private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox4ItemStateChanged
+
+    private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
+        // TODO add your handling code here:
+        if(jComboBox5.getSelectedItem() != ""){
+            try {
+                Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "' AND nombre_usuario = '" + jComboBox5.getSelectedItem() + "';");
+                while (Comando.next()) {
+                    jComboBox4.setSelectedItem(jComboBox2.getSelectedItem());
+                    jTextField9.setText(String.valueOf(Comando.getObject("nombre_usuario")));
+                    jTextField13.setText(String.valueOf(Comando.getObject("cargo_usuario")));
+                    jTextField17.setText(String.valueOf(Comando.getObject("apodo_usuario")));
+                    jPasswordField2.setText(String.valueOf(Comando.getObject("contrasena_usuario")));
+                }
+            } catch (Exception i) {
+                System.out.println(i);
+            }
+        }
+    }//GEN-LAST:event_jComboBox5ItemStateChanged
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////
-    
     /**
      * @param args the command line arguments
      */
@@ -677,20 +1033,46 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -700,10 +1082,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

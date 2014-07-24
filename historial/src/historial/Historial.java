@@ -5,6 +5,7 @@
  */
 package historial;
 
+import Clases.Variables;
 import MySQL.Funcion;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
@@ -138,11 +139,10 @@ public class Historial {
     }
 
     public static void Guardar_Registros() throws SQLException {
-        String id_Usuario = "2", nombre_Usuario = "Zero Vivanco", area_Usuario = "Programación";
+        String id_Usuario = "", nombre_Usuario = "", area_Usuario = "";
         int contador;
         Boolean existente = false;
-        /*
-         id_Usuario = Variables.getIdUsuario();
+         id_Usuario = String.valueOf(Variables.getIdUsuario());
          try {
          Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + id_Usuario + ";");
          while (Comando.next()) {
@@ -152,7 +152,6 @@ public class Historial {
          } catch (Exception e) {
          System.out.println(e);
          }
-         */
         for (contador = 0; contador < historial.length; contador++) {
             existente = false;
             try {
