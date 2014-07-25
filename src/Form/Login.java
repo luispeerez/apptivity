@@ -180,7 +180,6 @@ public class Login extends javax.swing.JFrame {
                     this.hide();
                     ver2.setVisible(true);
                     this.dispose();
-                    
                 } else {
                     Object[] options = {"Aceptar"};
                     JOptionPane.showOptionDialog(null, "Usuario y/o Contraseña incorrectos.", "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
@@ -195,6 +194,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
+        ver = false;
         Usuarios abrir=new Usuarios();
         this.hide();
         abrir.setVisible(true);

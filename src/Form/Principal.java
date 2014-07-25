@@ -683,40 +683,58 @@ public class Principal extends javax.swing.JFrame {
         Color gris = new Color(44, 44, 44);
         int i = 0;
         int Altura = 0;
-        JLabel VERMAS = null;
+        JLabel VerReporte = null;
         try {
             //Consultamos todas las areas
             Comando = Funcion.Select(st, "SELECT * FROM areas;");
             while(Comando.next()){
-                JLabel Area = new JLabel(Comando.getString("nombre_area"));
-                Area.setFont(new Font("Verdana", Font.BOLD, 18));
-                Area.setForeground(azul);
-                jPanel8.add(Area);
-                Altura = Altura + 20 + (i * 150);
-                Area.setLocation(50, Altura);
                 Statement st2 = Funcion.conexion();
                 ResultSet Comando2 = Funcion.Select(st2, "SELECT * FROM usuario_secundario WHERE area_usuario ='" + Comando.getString("nombre_area") + "';");
                 while(Comando2.next()){
                      //Creamos un panel con alineacion a la izquierda
-                    JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    JPanel Panel = new JPanel();
+                    Panel.setLayout(null);
                     jPanel8.add(Panel);
                     //Tamaño del panel
-                    Panel.setSize(700, 140);
+                    Panel.setSize(500, 200);
                     // La posicion y del panel ira incrementando para que no se encimen
-                    Altura = 30 + (i * 150);
-                    Panel.setLocation(50, Altura);
+                    Altura = 40 + (i * 150);
+                    Panel.setLocation(175, Altura);
                     Panel.setBackground(Color.white);
                     Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
                 //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
                     //se pase a la siguiente linea y para el margen izquierdo
-
+                    JLabel Foto = new JLabel();
+                    Foto.setSize(150, 150);
+                    File FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".png");
+                    File FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".jpg");
+                    if(FotoPerfil.exists()){
+                        ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".png");
+                        Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
+                        Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                        Foto.setIcon(IconoEscalado);
+                    } else if(FotoPerfil2.exists()){
+                        ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".jpg");
+                        Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
+                        Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                        Foto.setIcon(IconoEscalado);
+                    } else{
+                        ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
+                        Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
+                        Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                        Foto.setIcon(IconoEscalado);
+                    }
                     //JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
-                    JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + Comando2.getString("nombre_usuario")));
-                    JLabel Cargo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Cargo: " + Comando2.getString("cargo_usuario")));
-                    JLabel NombreUsuario = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre de Usuario: " + Comando2.getString("apodo_usuario")));
-
-                    VERMAS = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:450px;'><u>Ver mas</u></div><html>", Panel.getWidth()));
-                    VERMAS.setToolTipText(Comando2.getString("id"));
+                    //JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + Comando2.getString("nombre_usuario")));
+                    //JLabel Cargo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Cargo: " + Comando2.getString("cargo_usuario")));
+                    //JLabel NombreUsuario = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre de Usuario: " + Comando2.getString("apodo_usuario")));
+                    //VerReporte = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:350px;'><u>Generar Reporte</u></div><html>", Panel.getWidth()));
+                    JLabel Nombre = new JLabel();
+                    Nombre.setText("Nombre: " + Comando2.getString("nombre_usuario"));
+                    JLabel Cargo = new JLabel("Cargo: " + Comando2.getString("cargo_usuario"));
+                    JLabel NombreUsuario = new JLabel("Nombre de Usuario: " + Comando2.getString("apodo_usuario"));
+                    VerReporte = new JLabel("<html><u>Generar Reporte</u></html>");
+                    VerReporte.setToolTipText(Comando2.getString("id"));
                     MouseListener ml = new MouseListener() {
                         @Override
                         public void mouseReleased(MouseEvent e) {
@@ -745,25 +763,35 @@ public class Principal extends javax.swing.JFrame {
 
                         }
                     };
-                    VERMAS.addMouseListener(ml);
+                    VerReporte.addMouseListener(ml);
 //Fuente del texto
                     //RFC.setFont(new Font("Verdana", Font.PLAIN, 13));
                     //RFC.setForeground(gris);
-                    Nombre.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    Nombre.setFont(new Font("Verdana", Font.PLAIN, 15));
                     Nombre.setForeground(gris);
-                    Cargo.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    Cargo.setFont(new Font("Verdana", Font.PLAIN, 15));
                     Cargo.setForeground(gris);
-                    NombreUsuario.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    NombreUsuario.setFont(new Font("Verdana", Font.PLAIN, 15));
                     NombreUsuario.setForeground(gris);
-                    VERMAS.setFont(new Font("Verdana", Font.PLAIN, 13));
-                    VERMAS.setForeground(azul);
-                    VERMAS.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    VerReporte.setFont(new Font("Verdana", Font.PLAIN, 15));
+                    VerReporte.setForeground(azul);
+                    VerReporte.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 //Añadimos los label al panel correspondiente del cliente
                     //Panel.add(RFC);
+                    Panel.add(Foto);
                     Panel.add(Nombre);
                     Panel.add(Cargo);
                     Panel.add(NombreUsuario);
-                    Panel.add(VERMAS);
+                    Panel.add(VerReporte);
+                    Foto.setLocation(10, 20);
+                    Nombre.setLocation(170, 40);
+                    Nombre.setSize(300, 45);
+                    Cargo.setLocation(170, 60);
+                    Cargo.setSize(300, 45);
+                    NombreUsuario.setLocation(170, 80);
+                    NombreUsuario.setSize(300, 45);
+                    VerReporte.setLocation(350, 120);
+                    VerReporte.setSize(300, 45);
                     i++;
                 }
                 //i++;
