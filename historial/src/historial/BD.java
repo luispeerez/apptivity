@@ -17,7 +17,7 @@ public class BD{
     public BD(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/apptivity","root","");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/apptivity","root","ZEROEIVF1992");
             if (conn!=null){
                 System.out.println("Conectado a base de datos.");
             }
