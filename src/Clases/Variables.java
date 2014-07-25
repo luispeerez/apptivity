@@ -16,6 +16,7 @@ public class Variables {
 
     //**********  Login  ****************************
     public static int idUsuario;
+    private static String tipoUsuario;
 
     /**
      * @return the idUsuario
@@ -29,6 +30,20 @@ public class Variables {
      */
     public static void setIdUsuario(int aIdUsuario) {
         idUsuario = aIdUsuario;
+    }
+    
+    /**
+     * @return the tipoUsuario
+     */
+    public static String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    /**
+     * @param aTipoUsuario the tipoUsuario to set
+     */
+    public static void setTipoUsuario(String aTipoUsuario) {
+        tipoUsuario = aTipoUsuario;
     }
 
 //**************** Cliente  ********************************
@@ -370,6 +385,4 @@ public class Variables {
     public static void setFechaFactura(String aFechaFactura) {
         FechaFactura = aFechaFactura;
     }
-
-
 }

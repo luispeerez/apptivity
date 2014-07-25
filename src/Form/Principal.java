@@ -12,8 +12,12 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,11 +25,17 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DateFormatter;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -45,6 +55,7 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Funcion.CrearConexion();
         st = Funcion.conexion();
+        PerfilUsuario();
     }
 
     /**
@@ -263,7 +274,13 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
+        jLabel1.setToolTipText("Haz click para cambiar tu foto de perfil.");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel9.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 180));
 
         jPanel7.setBackground(Color.white);
@@ -527,7 +544,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 30);
+        jButton3.setBounds(720, 180, 100, 26);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -539,7 +556,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 30);
+        jButton10.setBounds(720, 230, 100, 26);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -609,25 +626,53 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void PerfilUsuario(){
+       try {
+           File FotoPerfil = null;
+           File FotoPerfil2 = null;
+           if(Variables.getTipoUsuario().equals("Principal")){
+               FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".png");
+               FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".jpg");
+               Comando = Funcion.Select(st, "SELECT * FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
+           } else if(Variables.getTipoUsuario().equals("Secundario")){
+               FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".png");
+               FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".jpg");
+               Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + Variables.getIdUsuario() + ";");
+           }
+           if(FotoPerfil.exists())
+           {
+               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
+               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+               jLabel1.setIcon(IconoEscalado);
+           } else if(FotoPerfil2.exists()){
+               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
+               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+               jLabel1.setIcon(IconoEscalado);
+           } else{
+               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
+               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+               jLabel1.setIcon(IconoEscalado);
+           }
+            while (Comando.next()) {
+                jTextField5.setText(Comando.getString("nombre_usuario"));
+                jTextField6.setText(Comando.getString("cargo_usuario"));
+                jTextField10.setText(Comando.getString("apodo_usuario"));
+                jPasswordField1.setText(Comando.getString("contrasena_usuario"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+   } 
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(0);
         Color azul = new Color(0, 153, 255);
         jButton5.setBackground(azul);
-
-        try {
-            Comando = Funcion.Select(st, "SELECT * FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
-            while (Comando.next()) {
-                jTextField5.setText(String.valueOf(Comando.getObject("nombre_usuario")));
-                jTextField6.setText(String.valueOf(Comando.getObject("cargo_usuario")));
-                jTextField10.setText(String.valueOf(Comando.getObject("apodo_usuario")));
-                jPasswordField1.setText(String.valueOf(Comando.getObject("contrasena_usuario")));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
+        PerfilUsuario();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -635,6 +680,102 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(1);
         Color azul = new Color(0, 153, 255);
         jButton6.setBackground(azul);
+        Color gris = new Color(44, 44, 44);
+        int i = 0;
+        int Altura = 0;
+        JLabel VERMAS = null;
+        try {
+            //Consultamos todas las areas
+            Comando = Funcion.Select(st, "SELECT * FROM areas;");
+            while(Comando.next()){
+                JLabel Area = new JLabel(Comando.getString("nombre_area"));
+                Area.setFont(new Font("Verdana", Font.BOLD, 18));
+                Area.setForeground(azul);
+                jPanel8.add(Area);
+                Altura = Altura + 20 + (i * 150);
+                Area.setLocation(50, Altura);
+                Statement st2 = Funcion.conexion();
+                ResultSet Comando2 = Funcion.Select(st2, "SELECT * FROM usuario_secundario WHERE area_usuario ='" + Comando.getString("nombre_area") + "';");
+                while(Comando2.next()){
+                     //Creamos un panel con alineacion a la izquierda
+                    JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    jPanel8.add(Panel);
+                    //Tamaño del panel
+                    Panel.setSize(700, 140);
+                    // La posicion y del panel ira incrementando para que no se encimen
+                    Altura = 30 + (i * 150);
+                    Panel.setLocation(50, Altura);
+                    Panel.setBackground(Color.white);
+                    Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
+                    //se pase a la siguiente linea y para el margen izquierdo
+
+                    //JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
+                    JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + Comando2.getString("nombre_usuario")));
+                    JLabel Cargo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Cargo: " + Comando2.getString("cargo_usuario")));
+                    JLabel NombreUsuario = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre de Usuario: " + Comando2.getString("apodo_usuario")));
+
+                    VERMAS = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:450px;'><u>Ver mas</u></div><html>", Panel.getWidth()));
+                    VERMAS.setToolTipText(Comando2.getString("id"));
+                    MouseListener ml = new MouseListener() {
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                            //System.out.println("Released!");
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            //System.out.println("Pressed!");
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            //System.out.println("Exited!");
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            //System.out.println("Entered!");
+                        }
+
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            JLabel source = (JLabel) e.getSource();
+                            System.out.println(source.getToolTipText());
+
+                        }
+                    };
+                    VERMAS.addMouseListener(ml);
+//Fuente del texto
+                    //RFC.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    //RFC.setForeground(gris);
+                    Nombre.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    Nombre.setForeground(gris);
+                    Cargo.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    Cargo.setForeground(gris);
+                    NombreUsuario.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    NombreUsuario.setForeground(gris);
+                    VERMAS.setFont(new Font("Verdana", Font.PLAIN, 13));
+                    VERMAS.setForeground(azul);
+                    VERMAS.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                //Añadimos los label al panel correspondiente del cliente
+                    //Panel.add(RFC);
+                    Panel.add(Nombre);
+                    Panel.add(Cargo);
+                    Panel.add(NombreUsuario);
+                    Panel.add(VERMAS);
+                    i++;
+                }
+                //i++;
+            }
+             //Funcion.CerrarConsulta(Comando);
+            //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
+            //Ciclo para crear un panel para cada uno
+        } catch (Exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
+        jPanel8.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 150));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -993,6 +1134,50 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jComboBox5ItemStateChanged
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        File Ruta = null;
+        JFileChooser Examinar = new JFileChooser();
+        FileNameExtensionFilter Filtro = new FileNameExtensionFilter("Image", "png", "jpg");
+        Examinar.addChoosableFileFilter(Filtro);
+        Examinar.setAcceptAllFileFilterUsed(false);
+        Examinar.setFileFilter(Filtro);
+        int Estatus = Examinar.showOpenDialog(this);
+        if(Estatus == JFileChooser.APPROVE_OPTION){
+            File Origen = Examinar.getSelectedFile();
+            String Extension = FilenameUtils.getExtension(Origen.getPath());
+            File Copia = new File(Variables.getIdUsuario() + "." + Extension);
+            if(Variables.getTipoUsuario().equals("Principal")){
+                Ruta = new File("Imagenes/Fotos Perfil/Usuario Principal");
+            } else if(Variables.getTipoUsuario().equals("Secundario")){
+                Ruta = new File("Imagenes/Fotos Perfil/Usuario Secundario");
+            }
+            try{
+                FileUtils.copyFile(Origen, Copia);
+                FileUtils.copyFileToDirectory(Copia, Ruta);
+                if(Extension.equals("png")){
+                    File jpg = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
+                    if(jpg.exists()){
+                        jpg.delete();
+                    }
+                }
+                if(Extension.equals("jpg")){
+                    File png = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
+                    if(png.exists()){
+                        png.delete();
+                    }
+                }
+                Copia.delete();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if(Estatus == JFileChooser.CANCEL_OPTION){
+            System.out.println("Cancelar");
+        }
+        PerfilUsuario();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
