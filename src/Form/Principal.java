@@ -698,7 +698,7 @@ public class Principal extends javax.swing.JFrame {
                     //Tamaño del panel
                     Panel.setSize(500, 200);
                     // La posicion y del panel ira incrementando para que no se encimen
-                    Altura = 40 + (i * 150);
+                    Altura = 40 + (i * 220);
                     Panel.setLocation(175, Altura);
                     Panel.setBackground(Color.white);
                     Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
