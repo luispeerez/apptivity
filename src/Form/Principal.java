@@ -10,30 +10,23 @@ import MySQL.Funcion;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.DateFormatter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -46,7 +39,7 @@ public class Principal extends javax.swing.JFrame {
     static Statement st;
     static ResultSet Comando;
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
-
+    static String[][] registros;
     /**
      * Creates new form Principal
      */
@@ -56,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
         Funcion.CrearConexion();
         st = Funcion.conexion();
         PerfilUsuario();
+        filtro_dominios();
     }
 
     /**
@@ -116,6 +110,8 @@ public class Principal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -129,6 +125,7 @@ public class Principal extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPasswordField2 = new javax.swing.JPasswordField();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -451,7 +448,7 @@ public class Principal extends javax.swing.JFrame {
                 jComboBox5ItemStateChanged(evt);
             }
         });
-        jPanel12.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 200, 30));
+        jPanel12.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 190, 30));
 
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -473,7 +470,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel12.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 320, -1));
 
         jPanel2.add(jPanel12);
-        jPanel12.setBounds(70, 330, 670, 70);
+        jPanel12.setBounds(70, 330, 660, 70);
 
         jPanel11.setBackground(Color.white);
         jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -544,7 +541,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 26);
+        jButton3.setBounds(720, 180, 100, 30);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -556,12 +553,36 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 26);
+        jButton10.setBounds(720, 230, 100, 30);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
         jPanel2.add(jLabel17);
         jLabel17.setBounds(70, 30, 390, 23);
+
+        jButton11.setBackground(new java.awt.Color(0, 153, 255));
+        jButton11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton11.setText("Eliminar");
+        jButton11.setFocusPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11);
+        jButton11.setBounds(440, 420, 120, 30);
+
+        jButton12.setBackground(new java.awt.Color(0, 153, 255));
+        jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton12.setText("Modificar");
+        jButton12.setFocusPainted(false);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton12);
+        jButton12.setBounds(250, 420, 120, 30);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -573,51 +594,64 @@ public class Principal extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Departamento:");
-        jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 130, -1));
+        jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 130, -1));
 
         jLabel22.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel22.setText("Cargo:");
-        jPanel13.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, -1, -1));
+        jPanel13.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel23.setText("Contraseña:");
-        jPanel13.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, -1, -1));
+        jPanel13.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, -1));
 
         jTextField9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel13.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 450, 30));
 
         jTextField13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel13.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 170, 30));
+        jPanel13.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 170, 30));
 
         jLabel25.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel25.setText("Horario de Salida:");
-        jPanel13.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 140, -1));
+        jPanel13.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, -1));
 
+        jTextField17.setEditable(false);
         jTextField17.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel13.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 170, 30));
+        jPanel13.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 170, 30));
 
         jLabel28.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel28.setText("Usuario:");
-        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        jPanel13.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
 
         jLabel29.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel29.setText("Nombre Empleado:");
         jPanel13.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        jComboBox4.setEditable(true);
         jComboBox4.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox4ItemStateChanged(evt);
             }
         });
-        jPanel13.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 200, 30));
+        jPanel13.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 200, 30));
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        jPanel13.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 170, -1));
-        jPanel13.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
+        jPanel13.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 170, -1));
+        jPanel13.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 170, -1));
+
+        jButton9.setBackground(new java.awt.Color(0, 153, 255));
+        jButton9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton9.setText("Guardar Cambios");
+        jButton9.setFocusPainted(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
 
         jPanel2.add(jPanel13);
-        jPanel13.setBounds(70, 420, 670, 190);
+        jPanel13.setBounds(70, 420, 660, 190);
 
         jTabbedPane2.addTab("tab1", jPanel2);
 
@@ -626,36 +660,35 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void PerfilUsuario(){
-       try {
-           File FotoPerfil = null;
-           File FotoPerfil2 = null;
-           if(Variables.getTipoUsuario().equals("Principal")){
-               FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".png");
-               FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".jpg");
-               Comando = Funcion.Select(st, "SELECT * FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
-           } else if(Variables.getTipoUsuario().equals("Secundario")){
-               FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".png");
-               FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".jpg");
-               Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + Variables.getIdUsuario() + ";");
-           }
-           if(FotoPerfil.exists())
-           {
-               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
-               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
-               jLabel1.setIcon(IconoEscalado);
-           } else if(FotoPerfil2.exists()){
-               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
-               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
-               jLabel1.setIcon(IconoEscalado);
-           } else{
-               ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
-               Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-               Icon IconoEscalado = new ImageIcon(ImagenEscalada);
-               jLabel1.setIcon(IconoEscalado);
-           }
+    public void PerfilUsuario() {
+        try {
+            File FotoPerfil = null;
+            File FotoPerfil2 = null;
+            if (Variables.getTipoUsuario().equals("Principal")) {
+                FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".png");
+                FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".jpg");
+                Comando = Funcion.Select(st, "SELECT * FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
+            } else if (Variables.getTipoUsuario().equals("Secundario")) {
+                FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".png");
+                FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".jpg");
+                Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + Variables.getIdUsuario() + ";");
+            }
+            if (FotoPerfil.exists()) {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            } else if (FotoPerfil2.exists()) {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            } else {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            }
             while (Comando.next()) {
                 jTextField5.setText(Comando.getString("nombre_usuario"));
                 jTextField6.setText(Comando.getString("cargo_usuario"));
@@ -665,8 +698,49 @@ public class Principal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-   } 
+    }
     
+    public void filtro_dominios(){
+        try {
+            int numero_registros = 0, posicion = 0;
+            Boolean existente = false;
+            Comando = Funcion.Select(st, "SELECT COUNT(*)FROM registros;");
+            while (Comando.next()) {
+                numero_registros = Integer.valueOf(Comando.getObject(1).toString());
+            }
+            registros = new String [numero_registros][2];
+            Comando = Funcion.Select(st, "SELECT area_usuario, dominio FROM registros;");
+            while (Comando.next()) {
+                registros[posicion][0] = Comando.getObject("dominio").toString();
+                registros[posicion][1] = Comando.getObject("area_usuario").toString();
+                posicion++;
+            }
+            
+            System.out.println(numero_registros);
+            
+            for(posicion = 0; posicion < registros.length; posicion++){
+                System.out.println(posicion);
+                Comando = Funcion.Select(st, "SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
+                System.out.println("SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
+                while (Comando.next()) {
+                    existente = true;
+                    System.out.println("Dentro");
+                }
+                if(!existente){
+                    String insercion;
+                    insercion = "INSERT INTO filtro_dominios VALUES('"
+                            + registros[posicion][1] + "', '"
+                            + registros[posicion][0] + "', '"
+                            + "No Clasificado');";
+                    Funcion.Update(st, insercion);
+                }
+                 existente = false;
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(0);
@@ -687,11 +761,11 @@ public class Principal extends javax.swing.JFrame {
         try {
             //Consultamos todas las areas
             Comando = Funcion.Select(st, "SELECT * FROM areas;");
-            while(Comando.next()){
+            while (Comando.next()) {
                 Statement st2 = Funcion.conexion();
                 ResultSet Comando2 = Funcion.Select(st2, "SELECT * FROM usuario_secundario WHERE area_usuario ='" + Comando.getString("nombre_area") + "';");
-                while(Comando2.next()){
-                     //Creamos un panel con alineacion a la izquierda
+                while (Comando2.next()) {
+                    //Creamos un panel con alineacion a la izquierda
                     JPanel Panel = new JPanel();
                     Panel.setLayout(null);
                     jPanel8.add(Panel);
@@ -702,23 +776,23 @@ public class Principal extends javax.swing.JFrame {
                     Panel.setLocation(175, Altura);
                     Panel.setBackground(Color.white);
                     Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
+                    //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
                     //se pase a la siguiente linea y para el margen izquierdo
                     JLabel Foto = new JLabel();
                     Foto.setSize(150, 150);
                     File FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".png");
                     File FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".jpg");
-                    if(FotoPerfil.exists()){
+                    if (FotoPerfil.exists()) {
                         ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".png");
                         Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
                         Icon IconoEscalado = new ImageIcon(ImagenEscalada);
                         Foto.setIcon(IconoEscalado);
-                    } else if(FotoPerfil2.exists()){
+                    } else if (FotoPerfil2.exists()) {
                         ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario Secundario/" + Comando2.getInt("id") + ".jpg");
                         Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
                         Icon IconoEscalado = new ImageIcon(ImagenEscalada);
                         Foto.setIcon(IconoEscalado);
-                    } else{
+                    } else {
                         ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
                         Image ImagenEscalada = Imagen.getImage().getScaledInstance(Foto.getWidth(), Foto.getHeight(), Image.SCALE_SMOOTH);
                         Icon IconoEscalado = new ImageIcon(ImagenEscalada);
@@ -776,7 +850,7 @@ public class Principal extends javax.swing.JFrame {
                     VerReporte.setFont(new Font("Verdana", Font.PLAIN, 15));
                     VerReporte.setForeground(azul);
                     VerReporte.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                //Añadimos los label al panel correspondiente del cliente
+                    //Añadimos los label al panel correspondiente del cliente
                     //Panel.add(RFC);
                     Panel.add(Foto);
                     Panel.add(Nombre);
@@ -796,7 +870,7 @@ public class Principal extends javax.swing.JFrame {
                 }
                 //i++;
             }
-             //Funcion.CerrarConsulta(Comando);
+            //Funcion.CerrarConsulta(Comando);
             //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
             //Ciclo para crear un panel para cada uno
         } catch (Exception ex) {
@@ -808,99 +882,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        int i = 0;
-        int Altura = 0;
-        Color gris = new Color(44, 44, 44);
-        jTabbedPane2.setSelectedIndex(2);
-        Color azul = new Color(0, 153, 255);
-        jButton7.setBackground(azul);
-        JLabel VERMAS = null;
-        try {
-            //Consultamos todos los clientes
-            //ResultSet Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
-            /*while(Comandos.next()){
-             i++;
-             }
-             JLabel[] VERMAS = new JLabel[i];
-             Funcion.CerrarConsulta(Comandos);*/
-            //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
-            int cont = 0;
-            //Ciclo para crear un panel para cada uno
-            while (i < 10) {
-                //Creamos un panel con alineacion a la izquierda
-                JPanel Panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                jPanel8.add(Panel);
-                //Tamaño del panel
-                Panel.setSize(700, 140);
-                // La posicion y del panel ira incrementando para que no se encimen
-                Altura = 30 + (i * 150);
-                Panel.setLocation(50, Altura);
-                Panel.setBackground(Color.white);
-                Panel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                //Creamos label para mostrar los datos del cliente, el codigo html es para que al llegar al final del panel
-                //se pase a la siguiente linea y para el margen izquierdo
-                
-                //JLabel RFC = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "RFC: " + "FRFOFO20402'3"));
-                JLabel Nombre = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Nombre: " + "Juan Camaney"));
-                //JLabel Direccion = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Direccion: " + "Avenida Siempre Viva No 2"));
-                JLabel Correo = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:50px;'>%s</div><html>", Panel.getWidth(), "Correo: " + "hola@quehace.com"));
-                
-                VERMAS = new JLabel(String.format("<html><div WIDTH=%d style='margin-left:450px;'><u>Ver mas</u></div><html>", Panel.getWidth()));
-                VERMAS.setToolTipText(String.valueOf(i));
-                MouseListener ml = new MouseListener() {
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        //System.out.println("Released!");
-                    }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        //System.out.println("Pressed!");
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        //System.out.println("Exited!");
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        //System.out.println("Entered!");
-                    }
-
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        JLabel source = (JLabel) e.getSource();
-                        System.out.println(source.getToolTipText());
-
-                    }
-                };
-                VERMAS.addMouseListener(ml);
-//Fuente del texto
-                //RFC.setFont(new Font("Verdana", Font.PLAIN, 13));
-                //RFC.setForeground(gris);
-                Nombre.setFont(new Font("Verdana", Font.PLAIN, 13));
-                Nombre.setForeground(gris);
-                //Direccion.setFont(new Font("Verdana", Font.PLAIN, 13));
-                //Direccion.setForeground(gris);
-                Correo.setFont(new Font("Verdana", Font.PLAIN, 13));
-                Correo.setForeground(gris);
-                VERMAS.setFont(new Font("Verdana", Font.PLAIN, 13));
-                VERMAS.setForeground(azul);
-                VERMAS.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                //Añadimos los label al panel correspondiente del cliente
-                //Panel.add(RFC);
-                Panel.add(Nombre);
-                //Panel.add(Direccion);
-                Panel.add(Correo);
-                Panel.add(VERMAS);
-                i++;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
-        jPanel8.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 150));
     }//GEN-LAST:event_jButton7ActionPerformed
 
 
@@ -983,13 +965,14 @@ public class Principal extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(4);
+        jPanel13.setVisible(false);
         Color azul = new Color(0, 153, 255);
         Color gris = new Color(44, 44, 44);
         //jFormattedTextField1.setFormatterFactory();
-        
+
         //jButton8.setBackground(azul);
         jButton10.setVisible(false);
-        if(jComboBox1.getItemCount()<= 0){
+        if (jComboBox1.getItemCount() <= 0) {
             jComboBox1.insertItemAt("", 0);
             jComboBox2.insertItemAt("", 0);
             jComboBox4.insertItemAt("", 0);
@@ -1003,8 +986,7 @@ public class Principal extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        } else {
             jComboBox1.setSelectedIndex(0);
             jComboBox2.setSelectedIndex(0);
             jComboBox4.setSelectedIndex(0);
@@ -1126,7 +1108,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
         // TODO add your handling code here:
-        if(jComboBox2.getSelectedItem() != ""){
+        if (jComboBox2.getSelectedItem() != "") {
             try {
                 jComboBox5.removeAllItems();
                 Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "';");
@@ -1134,20 +1116,33 @@ public class Principal extends javax.swing.JFrame {
                 while (Comando.next()) {
                     jComboBox5.addItem(String.valueOf(Comando.getObject("nombre_usuario")));
                 }
+                jComboBox4.setSelectedIndex(0);
+                jTextField9.setText("");
+                jTextField13.setText("");
+                jTextField17.setText("");
+                jPasswordField2.setText("");
             } catch (SQLException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        else{
+            jComboBox5.removeAllItems();
+            jComboBox4.setSelectedIndex(0);
+            jTextField9.setText("");
+            jTextField13.setText("");
+            jTextField17.setText("");
+            jPasswordField2.setText("");
         }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jComboBox4ItemStateChanged
 
     private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
         // TODO add your handling code here:
-        if(jComboBox5.getSelectedItem() != ""){
+        if (jComboBox5.getSelectedItem() != "") {
             try {
                 Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "' AND nombre_usuario = '" + jComboBox5.getSelectedItem() + "';");
                 while (Comando.next()) {
@@ -1161,6 +1156,13 @@ public class Principal extends javax.swing.JFrame {
                 System.out.println(i);
             }
         }
+        else{
+            jComboBox4.setSelectedIndex(0);
+            jTextField9.setText("");
+            jTextField13.setText("");
+            jTextField17.setText("");
+            jPasswordField2.setText("");
+        }
     }//GEN-LAST:event_jComboBox5ItemStateChanged
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -1172,40 +1174,87 @@ public class Principal extends javax.swing.JFrame {
         Examinar.setAcceptAllFileFilterUsed(false);
         Examinar.setFileFilter(Filtro);
         int Estatus = Examinar.showOpenDialog(this);
-        if(Estatus == JFileChooser.APPROVE_OPTION){
+        if (Estatus == JFileChooser.APPROVE_OPTION) {
             File Origen = Examinar.getSelectedFile();
             String Extension = FilenameUtils.getExtension(Origen.getPath());
             File Copia = new File(Variables.getIdUsuario() + "." + Extension);
-            if(Variables.getTipoUsuario().equals("Principal")){
+            if (Variables.getTipoUsuario().equals("Principal")) {
                 Ruta = new File("Imagenes/Fotos Perfil/Usuario Principal");
-            } else if(Variables.getTipoUsuario().equals("Secundario")){
+            } else if (Variables.getTipoUsuario().equals("Secundario")) {
                 Ruta = new File("Imagenes/Fotos Perfil/Usuario Secundario");
             }
-            try{
+            try {
                 FileUtils.copyFile(Origen, Copia);
                 FileUtils.copyFileToDirectory(Copia, Ruta);
-                if(Extension.equals("png")){
+                if (Extension.equals("png")) {
                     File jpg = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
-                    if(jpg.exists()){
+                    if (jpg.exists()) {
                         jpg.delete();
                     }
                 }
-                if(Extension.equals("jpg")){
+                if (Extension.equals("jpg")) {
                     File png = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
-                    if(png.exists()){
+                    if (png.exists()) {
                         png.delete();
                     }
                 }
                 Copia.delete();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if(Estatus == JFileChooser.CANCEL_OPTION){
+        } else if (Estatus == JFileChooser.CANCEL_OPTION) {
             System.out.println("Cancelar");
         }
         PerfilUsuario();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        String actualizacion;
+        actualizacion = "UPDATE usuario_secundario SET"
+                + " nombre_usuario = '" + jTextField9.getText()
+                + "', area_usuario = '" + jComboBox4.getSelectedItem()
+                + "', cargo_usuario = '" + jTextField13.getText()
+                + "', horario_salida = '"
+                + "', apodo_usuario = '" + jTextField17.getText()
+                + "', contrasena_usuario = '" + jPasswordField2.getText()
+                + "' WHERE apodo_usuario = '" + jTextField17.getText() +"'";
+        Funcion.Update(st, actualizacion);
+        jPanel13.setVisible(false);
+        jButton11.setVisible(true);
+        jButton12.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        String eliminacion;
+        eliminacion = "DELETE FROM usuario_secundario"
+                + " WHERE apodo_usuario = '" + jTextField17.getText() + "' AND contrasena_usuario = '" + jPasswordField2.getText() + "';";
+        Funcion.Update(st, eliminacion);
+        try{
+            jComboBox5.removeAllItems();
+            Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "';");
+            jComboBox5.addItem("");
+            while (Comando.next()) {
+                jComboBox5.addItem(String.valueOf(Comando.getObject("nombre_usuario")));
+        }
+        }catch(Exception e){
+            
+        }
+        jComboBox4.setSelectedIndex(0);
+        jTextField9.setText("");
+        jTextField13.setText("");
+        jTextField17.setText("");
+        jPasswordField2.setText("");
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        jPanel13.setVisible(true);
+        jButton11.setVisible(false);
+        jButton12.setVisible(false);
+    }//GEN-LAST:event_jButton12ActionPerformed
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1247,6 +1296,8 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1254,6 +1305,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox4;
