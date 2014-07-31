@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -33,9 +36,14 @@ import javafx.scene.control.Tooltip;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -50,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
     static String[][] registros;
     JFXPanel fxPanel;
+
     /**
      * Creates new form Principal
      */
@@ -60,6 +69,7 @@ public class Principal extends javax.swing.JFrame {
         st = Funcion.conexion();
         PerfilUsuario();
         filtro_dominios();
+        jSpinnerFormato();
     }
 
     /**
@@ -133,9 +143,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton9 = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
         ReporteUsuario = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -558,7 +568,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 26);
+        jButton3.setBounds(720, 180, 100, 30);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -570,7 +580,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 26);
+        jButton10.setBounds(720, 230, 100, 30);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -587,7 +597,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton11);
-        jButton11.setBounds(440, 420, 120, 26);
+        jButton11.setBounds(440, 420, 120, 30);
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -599,7 +609,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton12);
-        jButton12.setBounds(250, 420, 120, 26);
+        jButton12.setBounds(250, 420, 120, 30);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -651,9 +661,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel13.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 200, 30));
-
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        jPanel13.add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 170, -1));
         jPanel13.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 170, -1));
 
         jButton9.setBackground(new java.awt.Color(0, 153, 255));
@@ -666,6 +673,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel13.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
+
+        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+        jSpinner1.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner1, "hh:mm a"));
+        jPanel13.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
         jPanel2.add(jPanel13);
         jPanel13.setBounds(70, 420, 660, 190);
@@ -766,6 +777,22 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void jSpinnerFormato() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR, 12); // 
+
+        SpinnerDateModel dateModel = new SpinnerDateModel(calendar.getTime(), null,
+                null, Calendar.HOUR);
+        jSpinner1.setModel(dateModel);
+
+        JFormattedTextField tf = ((JSpinner.DefaultEditor) jSpinner1.getEditor()).getTextField();
+        DefaultFormatterFactory factory = (DefaultFormatterFactory) tf.getFormatterFactory();
+        DateFormatter formatter = (DateFormatter) factory.getDefaultFormatter();
+        tf.setEditable(false);
+
+        formatter.setFormat(new SimpleDateFormat("hh:mm a"));
+    }
+
     public void PerfilUsuario() {
         try {
             File FotoPerfil = null;
@@ -805,8 +832,8 @@ public class Principal extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
-    public void filtro_dominios(){
+
+    public void filtro_dominios() {
         try {
             int numero_registros = 0, posicion = 0;
             Boolean existente = false;
@@ -814,17 +841,17 @@ public class Principal extends javax.swing.JFrame {
             while (Comando.next()) {
                 numero_registros = Integer.valueOf(Comando.getObject(1).toString());
             }
-            registros = new String [numero_registros][2];
+            registros = new String[numero_registros][2];
             Comando = Funcion.Select(st, "SELECT area_usuario, dominio FROM registros;");
             while (Comando.next()) {
                 registros[posicion][0] = Comando.getObject("dominio").toString();
                 registros[posicion][1] = Comando.getObject("area_usuario").toString();
                 posicion++;
             }
-            
+
             System.out.println(numero_registros);
-            
-            for(posicion = 0; posicion < registros.length; posicion++){
+
+            for (posicion = 0; posicion < registros.length; posicion++) {
                 System.out.println(posicion);
                 Comando = Funcion.Select(st, "SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
                 System.out.println("SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
@@ -832,7 +859,7 @@ public class Principal extends javax.swing.JFrame {
                     existente = true;
                     System.out.println("Dentro");
                 }
-                if(!existente){
+                if (!existente) {
                     String insercion;
                     insercion = "INSERT INTO filtro_dominios VALUES('"
                             + registros[posicion][1] + "', '"
@@ -840,7 +867,7 @@ public class Principal extends javax.swing.JFrame {
                             + "No Clasificado');";
                     Funcion.Update(st, insercion);
                 }
-                 existente = false;
+                existente = false;
             }
         } catch (Exception e) {
             System.out.println("error");
@@ -1231,8 +1258,7 @@ public class Principal extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        } else {
             jComboBox5.removeAllItems();
             jComboBox4.setSelectedIndex(0);
             jTextField9.setText("");
@@ -1262,8 +1288,7 @@ public class Principal extends javax.swing.JFrame {
             } catch (Exception i) {
                 System.out.println(i);
             }
-        }
-        else{
+        } else {
             jComboBox4.setSelectedIndex(0);
             jTextField9.setText("");
             jTextField13.setText("");
@@ -1325,7 +1350,7 @@ public class Principal extends javax.swing.JFrame {
                 + "', horario_salida = '"
                 + "', apodo_usuario = '" + jTextField17.getText()
                 + "', contrasena_usuario = '" + jPasswordField2.getText()
-                + "' WHERE apodo_usuario = '" + jTextField17.getText() +"'";
+                + "' WHERE apodo_usuario = '" + jTextField17.getText() + "'";
         Funcion.Update(st, actualizacion);
         jPanel13.setVisible(false);
         jButton11.setVisible(true);
@@ -1338,22 +1363,22 @@ public class Principal extends javax.swing.JFrame {
         eliminacion = "DELETE FROM usuario_secundario"
                 + " WHERE apodo_usuario = '" + jTextField17.getText() + "' AND contrasena_usuario = '" + jPasswordField2.getText() + "';";
         Funcion.Update(st, eliminacion);
-        try{
+        try {
             jComboBox5.removeAllItems();
             Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE area_usuario = '" + jComboBox2.getSelectedItem() + "';");
             jComboBox5.addItem("");
             while (Comando.next()) {
                 jComboBox5.addItem(String.valueOf(Comando.getObject("nombre_usuario")));
-        }
-        }catch(Exception e){
-            
+            }
+        } catch (Exception e) {
+
         }
         jComboBox4.setSelectedIndex(0);
         jTextField9.setText("");
         jTextField13.setText("");
         jTextField17.setText("");
         jPasswordField2.setText("");
-        
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -1363,7 +1388,7 @@ public class Principal extends javax.swing.JFrame {
         jButton12.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    public void GraficaBarras(final int idUsuario){
+    public void GraficaBarras(final int idUsuario) {
         fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
             @Override
@@ -1371,8 +1396,9 @@ public class Principal extends javax.swing.JFrame {
                 Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + idUsuario + ";");
                 String NombreUsuario = null;
                 try {
-                    if(Comando.next())
+                    if (Comando.next()) {
                         NombreUsuario = Comando.getString("nombre_usuario");
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1385,7 +1411,7 @@ public class Principal extends javax.swing.JFrame {
                 yAxis.setLabel("N° de Visitas");
                 Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
                 try {
-                    while(Comando.next()){
+                    while (Comando.next()) {
                         XYChart.Series series = new XYChart.Series();
                         series.setName(Comando.getString("dominio"));
                         series.getData().add(new XYChart.Data("", Double.parseDouble(Comando.getString("num_visitas"))));
@@ -1394,8 +1420,8 @@ public class Principal extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                Scene scene = new Scene(bc, 800, 450);
+
+                Scene scene = new Scene(bc, 390, 440);
                 fxPanel.setScene(scene);
                 fxPanel.setSize(390, 440);
                 fxPanel.setLocation(393, 2);
@@ -1414,6 +1440,7 @@ public class Principal extends javax.swing.JFrame {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * @param args the command line arguments
      */
@@ -1469,7 +1496,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1511,6 +1537,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
