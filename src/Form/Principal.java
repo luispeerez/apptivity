@@ -7,6 +7,7 @@ package Form;
 
 import Clases.Variables;
 import MySQL.Funcion;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -21,6 +22,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -40,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
     static ResultSet Comando;
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
     static String[][] registros;
+    JFXPanel fxPanel;
     /**
      * Creates new form Principal
      */
@@ -126,6 +136,13 @@ public class Principal extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton9 = new javax.swing.JButton();
+        ReporteUsuario = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -541,7 +558,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 30);
+        jButton3.setBounds(720, 180, 100, 26);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -553,7 +570,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 30);
+        jButton10.setBounds(720, 230, 100, 26);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -570,7 +587,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton11);
-        jButton11.setBounds(440, 420, 120, 30);
+        jButton11.setBounds(440, 420, 120, 26);
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -582,7 +599,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton12);
-        jButton12.setBounds(250, 420, 120, 30);
+        jButton12.setBounds(250, 420, 120, 26);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -654,6 +671,95 @@ public class Principal extends javax.swing.JFrame {
         jPanel13.setBounds(70, 420, 660, 190);
 
         jTabbedPane2.addTab("tab1", jPanel2);
+
+        ReporteUsuario.setBackground(new java.awt.Color(243, 243, 243));
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel3.setText("Plazo de monitoreo:");
+
+        jComboBox3.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semanal", "Mensual", "Anual" }));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox3, 0, 134, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 255));
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton1.setText("Generar Análisis");
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 780, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 438, Short.MAX_VALUE)
+        );
+
+        jButton13.setBackground(new java.awt.Color(0, 153, 255));
+        jButton13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton13.setText("Guardar en PDF");
+
+        javax.swing.GroupLayout ReporteUsuarioLayout = new javax.swing.GroupLayout(ReporteUsuario);
+        ReporteUsuario.setLayout(ReporteUsuarioLayout);
+        ReporteUsuarioLayout.setHorizontalGroup(
+            ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteUsuarioLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(310, 310, 310))))
+        );
+        ReporteUsuarioLayout.setVerticalGroup(
+            ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteUsuarioLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+
+        jTabbedPane2.addTab("tab6", ReporteUsuario);
 
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 920, 650));
 
@@ -834,7 +940,8 @@ public class Principal extends javax.swing.JFrame {
                         public void mouseClicked(MouseEvent e) {
                             JLabel source = (JLabel) e.getSource();
                             System.out.println(source.getToolTipText());
-
+                            jTabbedPane2.setSelectedIndex(5);
+                            GraficaBarras(Integer.parseInt(source.getToolTipText()));
                         }
                     };
                     VerReporte.addMouseListener(ml);
@@ -1256,6 +1363,54 @@ public class Principal extends javax.swing.JFrame {
         jButton12.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    public void GraficaBarras(final int idUsuario){
+        fxPanel = new JFXPanel();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + idUsuario + ";");
+                String NombreUsuario = null;
+                try {
+                    if(Comando.next())
+                        NombreUsuario = Comando.getString("nombre_usuario");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                final CategoryAxis xAxis = new CategoryAxis();
+                final NumberAxis yAxis = new NumberAxis();
+                final BarChart<String, Number> bc
+                        = new BarChart<String, Number>(xAxis, yAxis);
+                bc.setTitle("Páginas más visitadas.");
+                xAxis.setLabel("Páginas");
+                yAxis.setLabel("N° de Visitas");
+                Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
+                try {
+                    while(Comando.next()){
+                        XYChart.Series series = new XYChart.Series();
+                        series.setName(Comando.getString("dominio"));
+                        series.getData().add(new XYChart.Data("", Double.parseDouble(Comando.getString("num_visitas"))));
+                        bc.getData().add(series);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Scene scene = new Scene(bc, 800, 450);
+                fxPanel.setScene(scene);
+                fxPanel.setSize(390, 440);
+                fxPanel.setLocation(393, 2);
+                for (final XYChart.Series<String, Number> series : bc.getData()) {
+                    for (final XYChart.Data<String, Number> data : series.getData()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(data.getYValue().toString());
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+                System.out.println("Ancho de fxpanel : " + fxPanel.getWidth());
+                jPanel15.add(fxPanel, BorderLayout.CENTER);
+            }
+        });
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1295,9 +1450,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ReporteUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1308,6 +1466,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -1330,6 +1489,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1338,6 +1498,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
