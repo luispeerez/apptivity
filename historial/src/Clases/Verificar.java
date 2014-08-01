@@ -29,6 +29,8 @@ public class Verificar {
             ResultSet resultadosConsultaSecundarios = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE apodo_usuario='" + elUsr + "' AND contrasena_usuario='" + elPw + "'");
             if (resultadosConsultaSecundarios.first()) {        // si es valido el primer reg. hay una fila, entonces el usuario y su pw existen
                 Variables.setIdUsuario(resultadosConsultaSecundarios.getInt("id"));
+                Variables.setIdUsuario(resultadosConsultaSecundarios.getInt("id"));
+                Variables.setTipoUsuario("Secundario");
                 return true;        //usuario validado correctamente
 
             } else {

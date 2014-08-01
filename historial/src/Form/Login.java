@@ -7,6 +7,7 @@ package Form;
 
 import Clases.Verificar;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +23,9 @@ public class Login extends javax.swing.JFrame {
         // getContentPane().setBackground(Color.LIGHT_GRAY);
         initComponents();
         setLocationRelativeTo(null);
-        Color col = new Color(243, 243, 243);
+        Color col = new Color(243,243,243);
         this.getContentPane().setBackground(col);
-        jPanel1.setVisible(true);
+        jPanel1.setVisible(false);
 
     }
 
@@ -47,6 +48,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -57,9 +63,19 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton1KeyReleased(evt);
+            }
+        });
 
         jPanel1.setBackground(Color.white);
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPanel1KeyReleased(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -71,9 +87,19 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 226, -1));
 
         jPasswordField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyReleased(evt);
+            }
+        });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 226, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
@@ -82,30 +108,29 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel1)))
-                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
+                .addGap(159, 159, 159))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabel1)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,22 +139,39 @@ public class Login extends javax.swing.JFrame {
     //Boton de iniciar sesion
     static boolean ver = false;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (jTextField1.getText().length() > 0 && jPasswordField1.getText().length() > 0) {
-            if (Verificar.validarUsuario(jTextField1.getText(), jPasswordField1.getText())) {
-                Principal ver2 = new Principal();
-                this.hide();
-                ver2.setVisible(true);
-                this.dispose();
-
-            } else {
-                Object[] options = {"Aceptar"};
-                JOptionPane.showOptionDialog(null, "Usuario y/o Contraseña incorrectos.", "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe escribir nombre de usuario y contraseña.\n" + "No puede dejar ningún campo vacío.");
-        }
+        Accionclick();
+  
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyReleased
+       if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){ 
+        Accionclick();
+        }
+    }//GEN-LAST:event_jButton1KeyReleased
+
+    private void jPasswordField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyReleased
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){ 
+        Accionclick();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyReleased
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){ 
+        Accionclick();
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+       if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){ 
+        Accionclick();
+        }
+    }//GEN-LAST:event_formKeyReleased
+
+    private void jPanel1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyReleased
+    if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){ 
+        Accionclick();
+        }
+    }//GEN-LAST:event_jPanel1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -175,4 +217,31 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public void Accionclick(){
+        if(ver==false){
+            jPanel1.setVisible(true);
+            ver=true;
+        }
+        //Iniciar sesion
+        else{
+            
+            if (jTextField1.getText().length() > 0 && jPasswordField1.getText().length() > 0) {
+                if (Verificar.validarUsuario(jTextField1.getText(), jPasswordField1.getText())) {
+                    Principal ver2=new Principal();
+                    this.hide();
+                    ver2.setVisible(true);
+                    this.dispose();
+                } else {
+                    Object[] options = {"Aceptar"};
+                    JOptionPane.showOptionDialog(null, "Usuario y/o Contraseña incorrectos.", "Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe escribir nombre de usuario y contraseña.\n" + "No puede dejar ningún campo vacío.");
+            }  
+        }  
+}
+
+
+
 }

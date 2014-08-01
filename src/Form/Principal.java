@@ -947,19 +947,12 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void jSpinnerFormato() {
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.HOUR, 12); // 
-
-        SpinnerDateModel dateModel = new SpinnerDateModel(calendar.getTime(), null,
-                null, Calendar.HOUR);
-        jSpinner1.setModel(dateModel);
-
-        JFormattedTextField tf = ((JSpinner.DefaultEditor) jSpinner1.getEditor()).getTextField();
-        DefaultFormatterFactory factory = (DefaultFormatterFactory) tf.getFormatterFactory();
-        DateFormatter formatter = (DateFormatter) factory.getDefaultFormatter();
-        tf.setEditable(false);
-
-        formatter.setFormat(new SimpleDateFormat("hh:mm a"));
+        java.util.Date date = new java.util.Date();
+        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+        jSpinner1.setModel(sm);
+        JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "hh:mm a");
+        de.getTextField().setEditable( false );
+        jSpinner1.setEditor(de);
     }
 
     public void PerfilUsuario() {
@@ -1534,12 +1527,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        String actualizacion;
+        String actualizacion, hora;
+            JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm:ss"); 
+            hora= de.getFormat().format(jSpinner1.getValue());
         actualizacion = "UPDATE usuario_secundario SET"
                 + " nombre_usuario = '" + jTextField9.getText()
                 + "', area_usuario = '" + jComboBox4.getSelectedItem()
                 + "', cargo_usuario = '" + jTextField13.getText()
-                + "', horario_salida = '"
+                + "', horario_salida = '" + hora
                 + "', apodo_usuario = '" + jTextField17.getText()
                 + "', contrasena_usuario = '" + jPasswordField2.getText()
                 + "' WHERE apodo_usuario = '" + jTextField17.getText() + "'";
