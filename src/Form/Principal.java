@@ -1190,9 +1190,12 @@ public class Principal extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dep = (String) jComboBox8.getSelectedItem();
-        GraficaPieDepartamento(dep);
-        GraficaBarrasDepartamento(dep);
+        if(TerminarCargar = true){
+            jPanel16.removeAll();
+            String dep = (String) jComboBox8.getSelectedItem();
+            GraficaPieDepartamento(dep);
+            GraficaBarrasDepartamento(dep);
+        }
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1631,10 +1634,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
-        String departamento =  (String) jComboBox8.getSelectedItem();
-        jPanel16.removeAll();
-        GraficaPieDepartamento(departamento);
-        GraficaBarrasDepartamento(departamento);
+        if(TerminarCargar == true){
+            String departamento =  (String) jComboBox8.getSelectedItem();
+            jPanel16.removeAll();
+            GraficaPieDepartamento(departamento);
+            GraficaBarrasDepartamento(departamento);
+        }
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
@@ -1853,7 +1858,7 @@ public class Principal extends javax.swing.JFrame {
                     fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
                 }
                 
-                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE area_usuario = '" + departamento + "' GROUP BY dominio) total;");
+                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '"+ fecha_limite + "' AND '" +  fecha_Actual +"' GROUP BY dominio) total;");
                 try {
                     if (Comando.next()) {
                         tamano = Integer.valueOf(Comando.getObject(1).toString());
@@ -1863,7 +1868,7 @@ public class Principal extends javax.swing.JFrame {
                 }
                 dominios = new String [tamano];
                 System.out.println(dominios.length);
-                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE area_usuario = '" + departamento + "' GROUP BY dominio;");
+                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '"+ fecha_limite + "' AND '" +  fecha_Actual +"' GROUP BY dominio;");
                 try {
                     while (Comando.next()) {
                         dominios[cont] = Comando.getString("dominio");
