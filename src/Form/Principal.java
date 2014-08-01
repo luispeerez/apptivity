@@ -5,6 +5,7 @@
  */
 package Form;
 
+import Clases.NuevoPDF;
 import Clases.Variables;
 import MySQL.Funcion;
 import java.awt.BorderLayout;
@@ -27,17 +28,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -736,6 +742,11 @@ public class Principal extends javax.swing.JFrame {
         jButton13.setBackground(new java.awt.Color(0, 153, 255));
         jButton13.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton13.setText("Guardar en PDF");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ReporteUsuarioLayout = new javax.swing.GroupLayout(ReporteUsuario);
         ReporteUsuario.setLayout(ReporteUsuarioLayout);
@@ -1388,6 +1399,16 @@ public class Principal extends javax.swing.JFrame {
         jButton12.setVisible(false);
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // Abriendo el dialog de pdf
+        NuevoPDF pdf = new NuevoPDF("mipdf.pdf");
+        pdf.main();
+        Object[] options = {"Aceptar"};
+        JOptionPane.showOptionDialog(null, "Reporte guardado correctamente", "Reporte generado",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     public void GraficaBarras(final int idUsuario) {
         fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
@@ -1422,6 +1443,16 @@ public class Principal extends javax.swing.JFrame {
                 }
 
                 Scene scene = new Scene(bc, 390, 440);
+                
+                //Convirtiendo el chart a imagen(no cambiar el nombre de la imagen)
+                WritableImage image = bc.snapshot(new SnapshotParameters(), null);
+                File file = new File("chartbarras.png");
+                try{
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }    
+                
                 fxPanel.setScene(scene);
                 fxPanel.setSize(390, 440);
                 fxPanel.setLocation(393, 2);
