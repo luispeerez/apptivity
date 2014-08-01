@@ -71,7 +71,7 @@ public class Principal extends javax.swing.JFrame {
     static ResultSet Comando;
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
     static String[][] registros;
-    JFXPanel fxPanel;
+    JFXPanel fxPanel, fxPanel2;
     boolean TerminarCargar;
     /**
      * Creates new form Principal
@@ -779,7 +779,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
+            .addGap(0, 815, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,17 +800,17 @@ public class Principal extends javax.swing.JFrame {
         ReporteUsuarioLayout.setHorizontalGroup(
             ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReporteUsuarioLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(310, 310, 310))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(235, 235, 235))))
+                        .addGap(235, 235, 235))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         ReporteUsuarioLayout.setVerticalGroup(
             ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1481,6 +1481,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     public void GraficaPieUsuario(final int idUsuario) {
+        fxPanel2 = new JFXPanel();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -1566,10 +1567,10 @@ public class Principal extends javax.swing.JFrame {
                 //jPanel1.setLayout(new java.awt.BorderLayout());
                 
                 ((Group) scene.getRoot()).getChildren().add(chart);
-                fxPanel.setScene(scene);
-                fxPanel.setSize(390, 440);
-                fxPanel.setLocation(2, 2);
-                jPanel15.add(fxPanel, BorderLayout.CENTER);
+                fxPanel2.setScene(scene);
+                fxPanel2.setSize(440, 440);
+                fxPanel2.setLocation(0, 2);
+                jPanel15.add(fxPanel2, BorderLayout.CENTER);
 
                 //Charts hover
                 final Label caption = new Label("");
@@ -1647,7 +1648,7 @@ public class Principal extends javax.swing.JFrame {
                 
                 fxPanel.setScene(scene);
                 fxPanel.setSize(390, 440);
-                fxPanel.setLocation(393, 2);
+                fxPanel.setLocation(430, 2);
                 for (final XYChart.Series<String, Number> series : bc.getData()) {
                     for (final XYChart.Data<String, Number> data : series.getData()) {
                         Tooltip tooltip = new Tooltip();
@@ -1655,7 +1656,6 @@ public class Principal extends javax.swing.JFrame {
                         Tooltip.install(data.getNode(), tooltip);
                     }
                 }
-                System.out.println("Ancho de fxpanel : " + fxPanel.getWidth());
                 jPanel15.add(fxPanel, BorderLayout.CENTER);
             }
         });
