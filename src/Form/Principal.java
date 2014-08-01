@@ -28,14 +28,20 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
@@ -897,15 +903,10 @@ public class Principal extends javax.swing.JFrame {
                 posicion++;
             }
 
-            System.out.println(numero_registros);
-
             for (posicion = 0; posicion < registros.length; posicion++) {
-                System.out.println(posicion);
                 Comando = Funcion.Select(st, "SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
-                System.out.println("SELECT *FROM filtro_dominios WHERE dominio = '" + registros[posicion][0] + "' AND area = '" + registros[posicion][1] + "';");
                 while (Comando.next()) {
                     existente = true;
-                    System.out.println("Dentro");
                 }
                 if (!existente) {
                     String insercion;
@@ -1019,6 +1020,7 @@ public class Principal extends javax.swing.JFrame {
                             jTabbedPane2.setSelectedIndex(5);
                             jPanel15.removeAll();
                             GraficaBarrasUsuario(Variables.idReporte);
+                            GraficaPieUsuario(Variables.idReporte);
                             jPanel15.repaint();
                         }
                     };
@@ -1473,10 +1475,122 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPanel15.removeAll();
         GraficaBarrasUsuario(Variables.idReporte);
+        GraficaPieUsuario(Variables.idReporte);
         jPanel15.repaint();
         
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    public void GraficaPieUsuario(final int idUsuario) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+                String[]dominios;
+                int cont = 0, tamano = 0, acep = 0, reg = 0, inac = 0, nocl = 0;
+                Boolean existente = false;
+                Date fecha_Actual = new Date(System.currentTimeMillis());
+                Date fecha_limite = null;
+                if(jComboBox3.getSelectedItem().toString().equals("Diario")){
+                    fecha_limite = new Date(fecha_Actual.getTime());
+                } else if(jComboBox3.getSelectedItem().toString().equals("Semanal")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 7 * 24 * 3600 * 1000);
+                } else if(jComboBox3.getSelectedItem().toString().equals("Mensual")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
+                }
+                
+                Comando = Funcion.Select(st, "SELECT nombre_usuario, area_usuario FROM usuario_secundario WHERE id = " + idUsuario + ";");
+                String NombreUsuario = null, area = null;
+                try {
+                    if (Comando.next()) {
+                        NombreUsuario = Comando.getString("nombre_usuario");
+                        area = Comando.getString("area_usuario");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) total;");
+                try {
+                    if (Comando.next()) {
+                        tamano = Integer.valueOf(Comando.getObject(1).toString());
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                dominios = new String [tamano];
+                System.out.println(dominios.length);
+                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio;");
+                try {
+                    while (Comando.next()) {
+                        dominios[cont] = Comando.getString("dominio");
+                        cont++;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try{
+                    for(cont = 0; cont < dominios.length; cont++){
+                        Comando = Funcion.Select(st, "SELECT nivel FROM filtro_dominios WHERE area = '" + area + "' AND dominio = '" + dominios[cont] + "';");
+                        //System.out.println("SELECT nivel FROM filtro_dominios WHERE area = '" + area + "' AND dominio = '" + dominios[cont] + "';");
+                        while (Comando.next()) {
+                            switch (Comando.getString("nivel")) {
+                                case "Aceptable":
+                                    acep++;
+                                    break;
+                                case "Regular":
+                                    reg++;
+                                    break;
+                                case "Inaceptable":
+                                    inac++;
+                                    break;
+                                case "No Clasificado":
+                                    nocl++;
+                                    break;
+                            }
+                            
+                        }
+                    }
+                }catch(SQLException i){
+                    System.out.println("error!!!!");
+                }
+                
+                Scene scene = new Scene(new Group());
+                ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Productivo", acep),
+                new PieChart.Data("No productivo", inac),
+                new PieChart.Data("Regular", reg),
+                new PieChart.Data("No clasificado", nocl));
+                final PieChart chart = new PieChart(pieChartData);
+                chart.setTitle("Reporte de productividad");
+                
+                //jPanel1.setLayout(new java.awt.BorderLayout());
+                
+                ((Group) scene.getRoot()).getChildren().add(chart);
+                fxPanel.setScene(scene);
+                fxPanel.setSize(390, 440);
+                fxPanel.setLocation(2, 2);
+                jPanel15.add(fxPanel, BorderLayout.CENTER);
+
+                //Charts hover
+                final Label caption = new Label("");
+                caption.setTextFill(javafx.scene.paint.Color.DARKORANGE);
+                caption.setStyle("-fx-font: 24 arial;");
+
+                for (final PieChart.Data data : chart.getData()) {
+                    data.getNode().addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED,
+                        new EventHandler<javafx.scene.input.MouseEvent>() {
+                            @Override public void handle(javafx.scene.input.MouseEvent e) {
+                                caption.setTranslateX(e.getSceneX());
+                                caption.setTranslateY(e.getSceneY());
+                                caption.setText(String.valueOf(data.getPieValue()) + "%");
+                             }
+                        });
+                }
+            }
+        });
+        //jPanel1.add((Component)chart);    
+    }
+    
     public void GraficaBarrasUsuario(final int idUsuario) {
         fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
