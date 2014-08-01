@@ -1172,10 +1172,11 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
-        jPanel8.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 150));
+        jPanel8.setPreferredSize(new Dimension(jPanel8.getWidth(), Altura + 220));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        TerminarCargar = false;
         jTabbedPane2.setSelectedIndex(2);
         Color azul = new Color(0, 153, 255);
         jButton7.setBackground(azul);
@@ -1184,6 +1185,7 @@ public class Principal extends javax.swing.JFrame {
         try {
             while(Comando.next()){
                 jComboBox8.addItem(Comando.getObject("nombre_area"));
+                TerminarCargar = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -1633,14 +1635,15 @@ public class Principal extends javax.swing.JFrame {
         jPanel16.removeAll();
         GraficaPieDepartamento(departamento);
         GraficaBarrasDepartamento(departamento);
-        
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
-        String departamento =  (String) jComboBox8.getSelectedItem();
-        jPanel16.removeAll();
-        GraficaPieDepartamento(departamento);
-        GraficaBarrasDepartamento(departamento);
+        if (TerminarCargar == true) {
+            String departamento = (String) jComboBox8.getSelectedItem();
+            jPanel16.removeAll();
+            GraficaPieDepartamento(departamento);
+            GraficaBarrasDepartamento(departamento);
+        }
     }//GEN-LAST:event_jComboBox8ActionPerformed
 
     public void GraficaPieUsuario(final int idUsuario) {
@@ -1725,7 +1728,7 @@ public class Principal extends javax.swing.JFrame {
                 new PieChart.Data("No clasificado", nocl));
                 final PieChart chart = new PieChart(pieChartData);
                 chart.setTitle("Reporte de productividad");
-                
+                chart.setPrefSize(390, 440);
                 //jPanel1.setLayout(new java.awt.BorderLayout());
                 
                 ((Group) scene.getRoot()).getChildren().add(chart);
@@ -1904,7 +1907,7 @@ public class Principal extends javax.swing.JFrame {
                 new PieChart.Data("No clasificado", nocl));
                 final PieChart chart = new PieChart(pieChartData);
                 chart.setTitle("Reporte de productividad");
-                
+                chart.setPrefSize(390, 440);
                 //jPanel1.setLayout(new java.awt.BorderLayout());
                 
                 ((Group) scene.getRoot()).getChildren().add(chart);
