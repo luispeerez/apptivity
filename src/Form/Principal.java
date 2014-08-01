@@ -1196,6 +1196,7 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dep = (String) jComboBox8.getSelectedItem();
+        GraficaPieDepartamento(dep);
         GraficaBarrasDepartamento(dep);
 
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -1622,12 +1623,15 @@ public class Principal extends javax.swing.JFrame {
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
         String departamento =  (String) jComboBox8.getSelectedItem();
         jPanel16.removeAll();
+        GraficaPieDepartamento(departamento);
         GraficaBarrasDepartamento(departamento);
+        
     }//GEN-LAST:event_jComboBox7ActionPerformed
 
     private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
         String departamento =  (String) jComboBox8.getSelectedItem();
         jPanel16.removeAll();
+        GraficaPieDepartamento(departamento);
         GraficaBarrasDepartamento(departamento);
     }//GEN-LAST:event_jComboBox8ActionPerformed
 
@@ -1819,6 +1823,116 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+
+    public void GraficaPieDepartamento(final String departamento) {
+        fxPanel2 = new JFXPanel();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                String[]dominios;
+                int cont = 0, tamano = 0, acep = 0, reg = 0, inac = 0, nocl = 0;
+                Boolean existente = false;
+                Date fecha_Actual = new Date(System.currentTimeMillis());
+                Date fecha_limite = null;
+                if(jComboBox8.getSelectedItem().toString().equals("Diario")){
+                    fecha_limite = new Date(fecha_Actual.getTime());
+                } else if(jComboBox8.getSelectedItem().toString().equals("Semanal")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 7 * 24 * 3600 * 1000);
+                } else if(jComboBox8.getSelectedItem().toString().equals("Mensual")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
+                }
+                
+                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) total;");
+                try {
+                    if (Comando.next()) {
+                        tamano = Integer.valueOf(Comando.getObject(1).toString());
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                dominios = new String [tamano];
+                System.out.println(dominios.length);
+                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio;");
+                try {
+                    while (Comando.next()) {
+                        dominios[cont] = Comando.getString("dominio");
+                        cont++;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try{
+                    for(cont = 0; cont < dominios.length; cont++){
+                        Comando = Funcion.Select(st, "SELECT nivel FROM filtro_dominios WHERE area = '" + departamento + "' AND dominio = '" + dominios[cont] + "';");
+                        //System.out.println("SELECT nivel FROM filtro_dominios WHERE area = '" + area + "' AND dominio = '" + dominios[cont] + "';");
+                        while (Comando.next()) {
+                            switch (Comando.getString("nivel")) {
+                                case "Aceptable":
+                                    acep++;
+                                    break;
+                                case "Regular":
+                                    reg++;
+                                    break;
+                                case "Inaceptable":
+                                    inac++;
+                                    break;
+                                case "No Clasificado":
+                                    nocl++;
+                                    break;
+                            }
+                            
+                        }
+                    }
+                }catch(SQLException i){
+                    System.out.println("error!!!!");
+                }
+                
+                Scene scene = new Scene(new Group());
+                ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Productivo", acep),
+                new PieChart.Data("No productivo", inac),
+                new PieChart.Data("Regular", reg),
+                new PieChart.Data("No clasificado", nocl));
+                final PieChart chart = new PieChart(pieChartData);
+                chart.setTitle("Reporte de productividad");
+                
+                //jPanel1.setLayout(new java.awt.BorderLayout());
+                
+                ((Group) scene.getRoot()).getChildren().add(chart);
+                fxPanel2.setScene(scene);
+                fxPanel2.setSize(430, 440);
+                fxPanel2.setLocation(0, 2);
+                jPanel16.add(fxPanel2, BorderLayout.CENTER);
+
+                //Charts hover
+                final Label caption = new Label("");
+                caption.setTextFill(javafx.scene.paint.Color.DARKORANGE);
+                caption.setStyle("-fx-font: 24 arial;");
+
+                for (final PieChart.Data data : chart.getData()) {
+                    data.getNode().addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED,
+                        new EventHandler<javafx.scene.input.MouseEvent>() {
+                            @Override public void handle(javafx.scene.input.MouseEvent e) {
+                                caption.setTranslateX(e.getSceneX());
+                                caption.setTranslateY(e.getSceneY());
+                                caption.setText(String.valueOf(data.getPieValue()) + "%");
+                             }
+                        });
+                }
+                //Convirtiendo el chart a imagen(no cambiar el nombre de la imagen)
+                WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+                File file = new File("chartpie.png");
+                try{
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }    
+            }
+        });
+        //jPanel1.add((Component)chart);    
+    }
+    
     
     public void GraficaBarrasDepartamento(final String departamento) {
         fxPanel = new JFXPanel();
