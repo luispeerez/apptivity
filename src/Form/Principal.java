@@ -71,7 +71,7 @@ public class Principal extends javax.swing.JFrame {
     static ResultSet Comando;
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
     static String[][] registros;
-    JFXPanel fxPanel;
+    JFXPanel fxPanel, fxPanel2;
     boolean TerminarCargar;
     /**
      * Creates new form Principal
@@ -543,7 +543,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -566,7 +566,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -734,7 +734,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 30);
+        jButton3.setBounds(720, 180, 100, 26);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -746,7 +746,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 30);
+        jButton10.setBounds(720, 230, 100, 26);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -763,7 +763,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton11);
-        jButton11.setBounds(440, 420, 120, 30);
+        jButton11.setBounds(440, 420, 120, 26);
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -775,7 +775,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton12);
-        jButton12.setBounds(250, 420, 120, 30);
+        jButton12.setBounds(250, 420, 120, 26);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -894,7 +894,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
+            .addGap(0, 825, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,17 +915,17 @@ public class Principal extends javax.swing.JFrame {
         ReporteUsuarioLayout.setHorizontalGroup(
             ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReporteUsuarioLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(310, 310, 310))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(235, 235, 235))))
+                        .addGap(235, 235, 235))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         ReporteUsuarioLayout.setVerticalGroup(
             ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1632,10 +1632,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox8ActionPerformed
 
     public void GraficaPieUsuario(final int idUsuario) {
+        fxPanel2 = new JFXPanel();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
                 String[]dominios;
                 int cont = 0, tamano = 0, acep = 0, reg = 0, inac = 0, nocl = 0;
                 Boolean existente = false;
@@ -1717,10 +1717,10 @@ public class Principal extends javax.swing.JFrame {
                 //jPanel1.setLayout(new java.awt.BorderLayout());
                 
                 ((Group) scene.getRoot()).getChildren().add(chart);
-                fxPanel.setScene(scene);
-                fxPanel.setSize(390, 440);
-                fxPanel.setLocation(2, 2);
-                jPanel15.add(fxPanel, BorderLayout.CENTER);
+                fxPanel2.setScene(scene);
+                fxPanel2.setSize(430, 440);
+                fxPanel2.setLocation(0, 2);
+                jPanel15.add(fxPanel2, BorderLayout.CENTER);
 
                 //Charts hover
                 final Label caption = new Label("");
@@ -1806,7 +1806,7 @@ public class Principal extends javax.swing.JFrame {
                 
                 fxPanel.setScene(scene);
                 fxPanel.setSize(390, 440);
-                fxPanel.setLocation(393, 2);
+                fxPanel.setLocation(435, 2);
                 for (final XYChart.Series<String, Number> series : bc.getData()) {
                     for (final XYChart.Data<String, Number> data : series.getData()) {
                         Tooltip tooltip = new Tooltip();
