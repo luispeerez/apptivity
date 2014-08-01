@@ -1578,7 +1578,17 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // Abriendo el dialog de pdf
-        NuevoPDF pdf = new NuevoPDF("mipdf.pdf");
+        String usuario = "";
+        Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE id ="+ Variables.idReporte);  
+        try{
+            while (Comando.next()) {
+                usuario = (String.valueOf(Comando.getObject("nombre_usuario")));
+            }
+        }catch(Exception e){}
+        String departamento = (String) jComboBox8.getSelectedItem();
+        String lapso = (String) jComboBox3.getSelectedItem();
+        String[] params = {"Individual",usuario,departamento,lapso};
+        NuevoPDF pdf = new NuevoPDF(params);
         pdf.main();
         Object[] options = {"Aceptar"};
         JOptionPane.showOptionDialog(null, "Reporte guardado correctamente", "Reporte generado",
@@ -1607,7 +1617,10 @@ public class Principal extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         System.out.println("Se deberia guardar el pdf");
         // Abriendo el dialog de pdf
-        NuevoPDF pdf = new NuevoPDF("mipdf.pdf");
+        String departamento = (String) jComboBox8.getSelectedItem();
+        String lapso = (String) jComboBox7.getSelectedItem();
+        String[] params = {"Por departamento",departamento,departamento,lapso};
+        NuevoPDF pdf = new NuevoPDF(params);
         pdf.main();
         Object[] options = {"Aceptar"};
         JOptionPane.showOptionDialog(null, "Reporte guardado correctamente", "Reporte generado",
@@ -1837,7 +1850,7 @@ public class Principal extends javax.swing.JFrame {
                     fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
                 }
                 
-                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) total;");
+                Comando = Funcion.Select(st, "SELECT COUNT(*) FROM (SELECT *FROM registros WHERE area_usuario = '" + departamento + "' GROUP BY dominio) total;");
                 try {
                     if (Comando.next()) {
                         tamano = Integer.valueOf(Comando.getObject(1).toString());
@@ -1847,7 +1860,7 @@ public class Principal extends javax.swing.JFrame {
                 }
                 dominios = new String [tamano];
                 System.out.println(dominios.length);
-                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio;");
+                Comando = Funcion.Select(st, "SELECT dominio FROM registros WHERE area_usuario = '" + departamento + "' GROUP BY dominio;");
                 try {
                     while (Comando.next()) {
                         dominios[cont] = Comando.getString("dominio");

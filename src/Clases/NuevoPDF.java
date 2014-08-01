@@ -34,6 +34,11 @@ public class NuevoPDF {
 
     //private static String FILE = "C:\\Users\\Acer\\Documents\\NetBeansProjects\\Factura.pdf";
     private static String FILE = "";
+    public static String tipoReporte = "";
+    public static String nombreUsuarioODepartamento = "";
+    public static String departamento = "";
+    public static String rangodeReporte = "";
+    
 
     private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 8,
             Font.BOLD);
@@ -44,8 +49,11 @@ public class NuevoPDF {
     private static Font mediumBold = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD, BaseColor.BLACK);
     private static Font big = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.BLACK);
 
-    public NuevoPDF(String f) {
-        this.FILE = f;
+    public NuevoPDF(String[] params) {
+        this.tipoReporte = params[0];
+        this.nombreUsuarioODepartamento = params[1];
+        this.departamento = params[2];
+        this.rangodeReporte = params[3];
     }
 
     public static void main() {
@@ -266,11 +274,11 @@ public class NuevoPDF {
         datos.setWidthPercentage(99);    
         
         Paragraph rfc = new Paragraph("Tipo de reporte: ",mediumBold);
-        Paragraph rfc2 = new Paragraph("Por departamento",medium);
+        Paragraph rfc2 = new Paragraph(tipoReporte,medium);
         Paragraph nombre = new Paragraph("Nombre de usuario / Nombre de departamento",mediumBold);
-        Paragraph direccion = new Paragraph("Luis",medium);
+        Paragraph direccion = new Paragraph(nombreUsuarioODepartamento,medium);
         Paragraph ciudad = new Paragraph("Departamento del usuario:",mediumBold);
-        Paragraph cp = new Paragraph("Programacion",medium);
+        Paragraph cp = new Paragraph(departamento,medium);
         
         Paragraph[] datosCliente = {rfc, rfc2 , nombre , direccion, ciudad, cp};
         
@@ -290,7 +298,7 @@ public class NuevoPDF {
         
 
         Paragraph folioFactura = new Paragraph("Rango de reporte",smallBold);
-        Paragraph csd = new Paragraph("Semanal",small);
+        Paragraph csd = new Paragraph(rangodeReporte,small);
         Paragraph fecha = new Paragraph("Fecha y hora de emisión",smallBold);
         Paragraph datosfecha = new Paragraph(getCurrentTimeStamp(),small);
         folioFactura.setAlignment(Element.ALIGN_CENTER);
