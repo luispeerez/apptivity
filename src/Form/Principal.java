@@ -120,7 +120,14 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        jButton14 = new javax.swing.JButton();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox7 = new javax.swing.JComboBox();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox8 = new javax.swing.JComboBox();
         FiltroDominios = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBox6 = new javax.swing.JComboBox();
@@ -437,23 +444,131 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(243, 243, 243));
 
-        jLabel5.setText("Administrador");
+        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 780, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 438, Short.MAX_VALUE)
+        );
+
+        jButton14.setBackground(new java.awt.Color(0, 153, 255));
+        jButton14.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton14.setText("Guardar en PDF");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel6.setText("Plazo de monitoreo:");
+
+        jComboBox7.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diario", "Semanal", "Mensual" }));
+        jComboBox7.setSelectedItem("Semanal");
+        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox7, 0, 134, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel7.setText("Departamento:");
+
+        jComboBox8.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jComboBox8.setSelectedItem("Semanal");
+        jComboBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox8ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox8, 0, 195, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addComponent(jLabel5)
-                .addContainerGap(641, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(310, 310, 310))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(557, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(74, 74, 74))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         jTabbedPane2.addTab("tab4", jPanel5);
@@ -619,7 +734,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 26);
+        jButton3.setBounds(720, 180, 100, 30);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -631,7 +746,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 26);
+        jButton10.setBounds(720, 230, 100, 30);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -648,7 +763,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton11);
-        jButton11.setBounds(440, 420, 120, 26);
+        jButton11.setBounds(440, 420, 120, 30);
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -660,7 +775,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton12);
-        jButton12.setBounds(250, 420, 120, 26);
+        jButton12.setBounds(250, 420, 120, 30);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1068,7 +1183,20 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(2);
+        Color azul = new Color(0, 153, 255);
+        jButton7.setBackground(azul);
+        jComboBox8.removeAllItems();
+        Comando = Funcion.Select(st, "SELECT * FROM areas;");
+        try {
+            while(Comando.next()){
+                jComboBox8.addItem(Comando.getObject("nombre_area"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dep = (String) jComboBox8.getSelectedItem();
+        GraficaBarrasDepartamento(dep);
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -1480,6 +1608,29 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        System.out.println("Se deberia guardar el pdf");
+        // Abriendo el dialog de pdf
+        NuevoPDF pdf = new NuevoPDF("mipdf.pdf");
+        pdf.main();
+        Object[] options = {"Aceptar"};
+        JOptionPane.showOptionDialog(null, "Reporte guardado correctamente", "Reporte generado",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+        String departamento =  (String) jComboBox8.getSelectedItem();
+        jPanel16.removeAll();
+        GraficaBarrasDepartamento(departamento);
+    }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
+        String departamento =  (String) jComboBox8.getSelectedItem();
+        jPanel16.removeAll();
+        GraficaBarrasDepartamento(departamento);
+    }//GEN-LAST:event_jComboBox8ActionPerformed
+
     public void GraficaPieUsuario(final int idUsuario) {
         Platform.runLater(new Runnable() {
             @Override
@@ -1586,6 +1737,14 @@ public class Principal extends javax.swing.JFrame {
                              }
                         });
                 }
+                //Convirtiendo el chart a imagen(no cambiar el nombre de la imagen)
+                WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+                File file = new File("chartpie.png");
+                try{
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }    
             }
         });
         //jPanel1.add((Component)chart);    
@@ -1660,6 +1819,67 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void GraficaBarrasDepartamento(final String departamento) {
+        fxPanel = new JFXPanel();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                final CategoryAxis xAxis = new CategoryAxis();
+                final NumberAxis yAxis = new NumberAxis();
+                final BarChart<String, Number> bc
+                        = new BarChart<String, Number>(xAxis, yAxis);
+                bc.setTitle("Páginas más visitadas.");
+                xAxis.setLabel("Páginas");
+                yAxis.setLabel("N° de Visitas");
+                Date fecha_Actual = new Date(System.currentTimeMillis());
+                Date fecha_limite = null;
+                if(jComboBox7.getSelectedItem().toString().equals("Diario")){
+                    fecha_limite = new Date(fecha_Actual.getTime());
+                } else if(jComboBox7.getSelectedItem().toString().equals("Semanal")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 7 * 24 * 3600 * 1000);
+                } else if(jComboBox7.getSelectedItem().toString().equals("Mensual")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
+                }
+                System.out.println(fecha_limite);
+                Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE area_usuario = '" + departamento + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
+                try {
+                    while (Comando.next()) {
+                        XYChart.Series series = new XYChart.Series();
+                        series.setName(Comando.getString("dominio"));
+                        series.getData().add(new XYChart.Data("", Double.parseDouble(Comando.getString("num_visitas"))));
+                        bc.getData().add(series);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Scene scene = new Scene(bc, 390, 440);
+                
+                //Convirtiendo el chart a imagen(no cambiar el nombre de la imagen)
+                WritableImage image = bc.snapshot(new SnapshotParameters(), null);
+                File file = new File("chartbarras.png");
+                try{
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+                }catch(Exception e){
+                    System.out.println(e.getMessage());
+                }    
+                
+                fxPanel.setScene(scene);
+                fxPanel.setSize(390, 440);
+                fxPanel.setLocation(393, 2);
+                for (final XYChart.Series<String, Number> series : bc.getData()) {
+                    for (final XYChart.Data<String, Number> data : series.getData()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(data.getYValue().toString());
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+                System.out.println("Ancho de fxpanel : " + fxPanel.getWidth());
+                jPanel16.add(fxPanel, BorderLayout.CENTER);
+            }
+        });
+    }    
     
     public void PanelesDominios(){
         final Color gris = new Color(220, 220, 220);
@@ -1814,6 +2034,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1828,6 +2049,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
+    private javax.swing.JComboBox jComboBox7;
+    private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1849,7 +2072,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1859,6 +2083,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

@@ -22,6 +22,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
 
 /**
@@ -290,7 +292,7 @@ public class NuevoPDF {
         Paragraph folioFactura = new Paragraph("Rango de reporte",smallBold);
         Paragraph csd = new Paragraph("Semanal",small);
         Paragraph fecha = new Paragraph("Fecha y hora de emisión",smallBold);
-        Paragraph datosfecha = new Paragraph("19/02/2014 02:12:10 pm",small);
+        Paragraph datosfecha = new Paragraph(getCurrentTimeStamp(),small);
         folioFactura.setAlignment(Element.ALIGN_CENTER);
         csd.setAlignment(Element.ALIGN_CENTER);
         fecha.setAlignment(Element.ALIGN_CENTER);
@@ -347,6 +349,13 @@ public class NuevoPDF {
         p.add(datosSAT);
         doc.add(p);
         
-    }    
+    }  
+    
+    public static String getCurrentTimeStamp() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
+    }
     
 }
