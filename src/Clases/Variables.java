@@ -17,7 +17,7 @@ public class Variables {
     //**********  Login  ****************************
     public static int idUsuario;
     private static String tipoUsuario;
-
+    public static int idReporte;
     /**
      * @return the idUsuario
      */

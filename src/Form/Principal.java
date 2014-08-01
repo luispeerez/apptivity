@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -161,7 +162,6 @@ public class Principal extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jButton13 = new javax.swing.JButton();
 
@@ -737,7 +737,13 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setText("Plazo de monitoreo:");
 
         jComboBox3.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semanal", "Mensual", "Anual" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diario", "Semanal", "Mensual" }));
+        jComboBox3.setSelectedItem("Semanal");
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -759,10 +765,6 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jButton1.setText("Generar Análisis");
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -795,24 +797,20 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
-                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
                         .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(310, 310, 310))))
+                        .addGap(310, 310, 310))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteUsuarioLayout.createSequentialGroup()
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(235, 235, 235))))
         );
         ReporteUsuarioLayout.setVerticalGroup(
             ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReporteUsuarioLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(ReporteUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -1017,8 +1015,11 @@ public class Principal extends javax.swing.JFrame {
                         public void mouseClicked(MouseEvent e) {
                             JLabel source = (JLabel) e.getSource();
                             System.out.println(source.getToolTipText());
+                            Variables.idReporte = Integer.parseInt(source.getToolTipText());
                             jTabbedPane2.setSelectedIndex(5);
-                            GraficaBarrasUsuario(Integer.parseInt(source.getToolTipText()));
+                            jPanel15.removeAll();
+                            GraficaBarrasUsuario(Variables.idReporte);
+                            jPanel15.repaint();
                         }
                     };
                     VerReporte.addMouseListener(ml);
@@ -1468,6 +1469,14 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+        jPanel15.removeAll();
+        GraficaBarrasUsuario(Variables.idReporte);
+        jPanel15.repaint();
+        
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
     public void GraficaBarrasUsuario(final int idUsuario) {
         fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
@@ -1489,7 +1498,17 @@ public class Principal extends javax.swing.JFrame {
                 bc.setTitle("Páginas más visitadas.");
                 xAxis.setLabel("Páginas");
                 yAxis.setLabel("N° de Visitas");
-                Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
+                Date fecha_Actual = new Date(System.currentTimeMillis());
+                Date fecha_limite = null;
+                if(jComboBox3.getSelectedItem().toString().equals("Diario")){
+                    fecha_limite = new Date(fecha_Actual.getTime());
+                } else if(jComboBox3.getSelectedItem().toString().equals("Semanal")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 7 * 24 * 3600 * 1000);
+                } else if(jComboBox3.getSelectedItem().toString().equals("Mensual")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
+                }
+                System.out.println(fecha_limite);
+                Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
                 try {
                     while (Comando.next()) {
                         XYChart.Series series = new XYChart.Series();
@@ -1677,7 +1696,6 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FiltroDominios;
     private javax.swing.JPanel ReporteUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
