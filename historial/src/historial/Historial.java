@@ -30,25 +30,22 @@ public class Historial {
         Statement consulta = null;
         int contador, contador_dos, tamano, numero_dominios = 0, numero_visitas = 1, plazo = 0, x = 0;
         BD conex = new BD();
-        
+
         try {
             PreparedStatement pstm = (PreparedStatement) conex.getConnection().prepareStatement("SELECT plazo_eliminación FROM configuración;");
             ResultSet res = pstm.executeQuery();
             while (res.next()) {
                 plazo = Integer.parseInt(res.getString("plazo_eliminación"));
             }
-            System.out.println(plazo);
         } catch (Exception i) {
         }
-        
+
         Date fecha_Actual = new Date(System.currentTimeMillis());
         Date fecha_Limite = new Date(fecha_Actual.getTime() - plazo * 24 * 3600 * 1000);
-        System.out.println(fecha_Actual);
-        System.out.println(fecha_Limite);
 
         try {
             Class.forName("org.sqlite.JDBC");
-            conexion = DriverManager.getConnection("jdbc:sqlite:C:/Users/Leonardo/AppData/Local/Google/Chrome/User Data/Default/History");
+            conexion = DriverManager.getConnection("jdbc:sqlite:/home/ezero/.config/google-chrome/Default/History");
             conexion.setAutoCommit(false);
             consulta = conexion.createStatement();
 
@@ -106,9 +103,9 @@ public class Historial {
                 }
             }
 
-            for (contador = 0; contador < historial.length; contador++) {
-                System.out.println("\nURL: " + historial[contador][0] + "\nFECHA: " + historial[contador][1] + "\nVISITAS: " + historial[contador][2]);
-            }
+            //for (contador = 0; contador < historial.length; contador++) {
+            //    System.out.println("\nURL: " + historial[contador][0] + "\nFECHA: " + historial[contador][1] + "\nVISITAS: " + historial[contador][2]);
+            //}
 
             resultado.close();
             consulta.close();

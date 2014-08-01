@@ -6,24 +6,67 @@
 
 package Form;
 
+import Clases.Variables;
+import MySQL.Funcion;
 import historial.Historial;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.WritableImage;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 /**
  *
  * @author ezero
  */
 public class Principal extends javax.swing.JFrame {
+    
     private String[] args;
-
+    static Statement st;
+    static ResultSet Comando;
+    static Boolean estado_BotonPerfil = false;
+    JFXPanel fxPanel;
+    
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        Funcion.CrearConexion();
+        st = Funcion.conexion();
+        try {
+            // TODO add your handling code here:
+            Historial.main(args);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PerfilUsuario();
+        jButton1.setVisible(false);
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,8 +77,29 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox();
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -47,26 +111,301 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(44, 44, 44));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton5.setBackground(new java.awt.Color(44, 44, 44));
+        jButton5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Perfil de Usuario");
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jButton5.setContentAreaFilled(false);
+        jButton5.setFocusPainted(false);
+        jButton5.setOpaque(true);
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton5MouseExited(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 200, 70));
+
+        jButton7.setBackground(new java.awt.Color(44, 44, 44));
+        jButton7.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Reporte General");
+        jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jButton7.setContentAreaFilled(false);
+        jButton7.setFocusPainted(false);
+        jButton7.setOpaque(true);
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton7MouseExited(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 200, 70));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 440));
+
+        jTabbedPane2.setBackground(java.awt.Color.white);
+        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        jPanel3.setBackground(new java.awt.Color(243, 243, 243));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel9.setBackground(Color.white);
+        jPanel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel9.setEnabled(false);
+        jPanel9.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel9.setName(""); // NOI18N
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/LOGO.png"))); // NOI18N
+        jLabel1.setToolTipText("Haz click para cambiar tu foto de perfil.");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel9.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 180));
+
+        jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 250, 220));
+
+        jPanel7.setBackground(Color.white);
+        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel7.setEnabled(false);
+        jPanel7.setMaximumSize(new java.awt.Dimension(724, 278));
+        jPanel7.setName(""); // NOI18N
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel8.setText("Nombre de Usuario:");
+        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel9.setText("Nick de Usuario:");
+        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, -1));
+
+        jTextField5.setEditable(false);
+        jTextField5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 250, 30));
+
+        jTextField10.setEditable(false);
+        jTextField10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jPanel7.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 250, 30));
+
+        jLabel11.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel11.setText("Ocupación:");
+        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jTextField6.setMaximumSize(new java.awt.Dimension(6, 24));
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 250, 30));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel12.setText("Contraseña:");
+        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+
+        jPasswordField1.setEditable(false);
+        jPasswordField1.setText("jPasswordField1");
+        jPanel7.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 250, -1));
+
+        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 420, 220));
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 255));
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton2.setText("Editar Datos");
+        jButton2.setFocusPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 170, 40));
+
+        jTabbedPane2.addTab("tab2", jPanel3);
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 664, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 314, Short.MAX_VALUE)
         );
+
+        jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 670, 320));
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel3.setText("Plazo de monitoreo:");
+        jPanel14.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jComboBox3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diario", "Semanal", "Mensual" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 134, -1));
+
+        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 320, 50));
+
+        jTabbedPane2.addTab("tab2", jPanel2);
+
+        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 780, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void PerfilUsuario() {
+        try {
+            File FotoPerfil = null;
+            File FotoPerfil2 = null;
+            if (Variables.getTipoUsuario().equals("Principal")) {
+                FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".png");
+                FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Principal/" + Variables.getIdUsuario() + ".jpg");
+                Comando = Funcion.Select(st, "SELECT *FROM usuario_principal WHERE id = " + Variables.getIdUsuario() + ";");
+            } else if (Variables.getTipoUsuario().equals("Secundario")) {
+                FotoPerfil = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".png");
+                FotoPerfil2 = new File("Imagenes/Fotos Perfil/Usuario Secundario/" + Variables.getIdUsuario() + ".jpg");
+                System.out.println("SELECT *FROM usuario_secundario WHERE id = " + Variables.getIdUsuario() + ";");
+                Comando = Funcion.Select(st, "SELECT *FROM usuario_secundario WHERE id = " + Variables.getIdUsuario() + ";");
+            }
+            if (FotoPerfil.exists()) {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            } else if (FotoPerfil2.exists()) {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            } else {
+                ImageIcon Imagen = new ImageIcon("Imagenes/Fotos Perfil/Default.png");
+                Image ImagenEscalada = Imagen.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+                Icon IconoEscalado = new ImageIcon(ImagenEscalada);
+                jLabel1.setIcon(IconoEscalado);
+            }
+            while (Comando.next()) {
+                jTextField5.setText(Comando.getString("nombre_usuario"));
+                jTextField6.setText(Comando.getString("cargo_usuario"));
+                jTextField10.setText(Comando.getString("apodo_usuario"));
+                jPasswordField1.setText(Comando.getString("contrasena_usuario"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Error 7");
+        }
+    }
+    
+    public void GraficaBarras(final int idUsuario) {
+        fxPanel = new JFXPanel();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Comando = Funcion.Select(st, "SELECT * FROM usuario_secundario WHERE id = " + idUsuario + ";");
+                String NombreUsuario = null;
+                try {
+                    if (Comando.next()) {
+                        NombreUsuario = Comando.getString("nombre_usuario");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                final CategoryAxis xAxis = new CategoryAxis();
+                final NumberAxis yAxis = new NumberAxis();
+                final BarChart<String, Number> bc
+                        = new BarChart<String, Number>(xAxis, yAxis);
+                bc.setTitle("Páginas más visitadas.");
+                xAxis.setLabel("Páginas");
+                yAxis.setLabel("N° de Visitas");
+                Date fecha_Actual = new Date(System.currentTimeMillis());
+                Date fecha_limite = null;
+                if(jComboBox3.getSelectedItem().toString().equals("Diario")){
+                    fecha_limite = new Date(fecha_Actual.getTime());
+                } else if(jComboBox3.getSelectedItem().toString().equals("Semanal")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 7 * 24 * 3600 * 1000);
+                } else if(jComboBox3.getSelectedItem().toString().equals("Mensual")){
+                    fecha_limite = new Date(fecha_Actual.getTime() - 24 * 24 * 3600 * 1000);
+                }
+                System.out.println(fecha_limite);
+                Comando = Funcion.Select(st, "(SELECT dominio, SUM(numero_visitas) num_visitas FROM registros WHERE nombre_usuario = '" + NombreUsuario + "' AND dia_visita BETWEEN '" + fecha_limite + "' AND '" +  fecha_Actual + "' GROUP BY dominio) ORDER BY num_visitas DESC LIMIT 10;");
+                try {
+                    while (Comando.next()) {
+                        XYChart.Series series = new XYChart.Series();
+                        series.setName(Comando.getString("dominio"));
+                        series.getData().add(new XYChart.Data("", Double.parseDouble(Comando.getString("num_visitas"))));
+                        bc.getData().add(series);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Scene scene = new Scene(bc, 650, 300); 
+                
+                fxPanel.setScene(scene);
+                fxPanel.setSize(650, 300);
+                fxPanel.setLocation(10, 10);
+                for (final XYChart.Series<String, Number> series : bc.getData()) {
+                    for (final XYChart.Data<String, Number> data : series.getData()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(data.getYValue().toString());
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+                System.out.println("Ancho de fxpanel : " + fxPanel.getWidth());
+                jPanel15.add(fxPanel, BorderLayout.CENTER);
+            }
+        });
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
@@ -75,6 +414,135 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
+        // TODO add your handling code here:
+        Color azul = new Color(0, 182, 230);
+        jButton5.setBackground(azul);
+    }//GEN-LAST:event_jButton5MouseEntered
+
+    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
+        // TODO add your handling code here:
+        Color gris = new Color(44, 44, 44);
+        jButton5.setBackground(gris);
+    }//GEN-LAST:event_jButton5MouseExited
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(0);
+        Color azul = new Color(0, 153, 255);
+        jButton5.setBackground(azul);
+        PerfilUsuario();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
+        // TODO add your handling code here:
+        Color azul = new Color(0, 182, 230);
+        jButton7.setBackground(azul);
+    }//GEN-LAST:event_jButton7MouseEntered
+
+    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
+        // TODO add your handling code here:
+        Color gris = new Color(44, 44, 44);
+        jButton7.setBackground(gris);
+    }//GEN-LAST:event_jButton7MouseExited
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(1);
+        Color azul = new Color(0, 153, 255);
+        jButton7.setBackground(azul);
+        GraficaBarras(Variables.getIdUsuario());
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        File Ruta = null;
+        JFileChooser Examinar = new JFileChooser();
+        FileNameExtensionFilter Filtro = new FileNameExtensionFilter("Image", "png", "jpg");
+        Examinar.addChoosableFileFilter(Filtro);
+        Examinar.setAcceptAllFileFilterUsed(false);
+        Examinar.setFileFilter(Filtro);
+        int Estatus = Examinar.showOpenDialog(this);
+        if (Estatus == JFileChooser.APPROVE_OPTION) {
+            File Origen = Examinar.getSelectedFile();
+            String Extension = FilenameUtils.getExtension(Origen.getPath());
+            File Copia = new File(Variables.getIdUsuario() + "." + Extension);
+            if (Variables.getTipoUsuario().equals("Principal")) {
+                Ruta = new File("Imagenes/Fotos Perfil/Usuario Principal");
+            } else if (Variables.getTipoUsuario().equals("Secundario")) {
+                Ruta = new File("Imagenes/Fotos Perfil/Usuario Secundario");
+            }
+            try {
+                FileUtils.copyFile(Origen, Copia);
+                FileUtils.copyFileToDirectory(Copia, Ruta);
+                if (Extension.equals("png")) {
+                    File jpg = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".jpg");
+                    if (jpg.exists()) {
+                        jpg.delete();
+                    }
+                }
+                if (Extension.equals("jpg")) {
+                    File png = new File("Imagenes/Fotos Perfil/Usuario " + Variables.getTipoUsuario() + "/" + Variables.getIdUsuario() + ".png");
+                    if (png.exists()) {
+                        png.delete();
+                    }
+                }
+                Copia.delete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (Estatus == JFileChooser.CANCEL_OPTION) {
+            System.out.println("Cancelar");
+        }
+        PerfilUsuario();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (!estado_BotonPerfil) {
+                jTextField5.setEditable(true);
+                jTextField6.setEditable(true);
+                jPasswordField1.setEditable(true);
+                jButton2.setText("Guardar Cambios");
+                estado_BotonPerfil = true;
+            } else {
+                if (jTextField5.getText().equalsIgnoreCase("") || jTextField6.getText().equalsIgnoreCase("") || jTextField10.getText().equalsIgnoreCase("") || jPasswordField1.getText().toString() != "") {
+                    String actualizacion;
+                    actualizacion = "UPDATE usuario_principal SET"
+                    + " nombre_usuario = '" + jTextField5.getText()
+                    + "', cargo_usuario = '" + jTextField6.getText()
+                    + "', apodo_usuario = '" + jTextField10.getText()
+                    + "', contrasena_usuario = '" + jPasswordField1.getText()
+                    + "' WHERE apodo_usuario = '" + jTextField10.getText() + "';";
+                    Funcion.Update(st, actualizacion);
+                    jTextField5.setEditable(false);
+                    jTextField6.setEditable(false);
+                    jPasswordField1.setEditable(false);
+                    jButton2.setText("Editar Datos");
+                    estado_BotonPerfil = false;
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+        jPanel15.removeAll();
+        GraficaBarras(Variables.getIdUsuario());
+        jPanel15.repaint();
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,5 +581,28 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
