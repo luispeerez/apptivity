@@ -40,6 +40,7 @@ import javafx.scene.image.WritableImage;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -64,7 +65,7 @@ public class Principal extends javax.swing.JFrame {
     static Boolean estado_BotonPerfil = false, estado_BotonDepa = false;
     static String[][] registros;
     JFXPanel fxPanel;
-
+    boolean TerminarCargar;
     /**
      * Creates new form Principal
      */
@@ -113,6 +114,10 @@ public class Principal extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        FiltroDominios = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -447,20 +452,54 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("tab4", jPanel5);
 
-        jPanel6.setBackground(new java.awt.Color(243, 243, 243));
+        FiltroDominios.setBackground(new java.awt.Color(243, 243, 243));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 883, Short.MAX_VALUE)
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel4.setText("Filtrado por:");
+
+        jComboBox6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setLayout(null);
+        jScrollPane2.setViewportView(jPanel6);
+
+        javax.swing.GroupLayout FiltroDominiosLayout = new javax.swing.GroupLayout(FiltroDominios);
+        FiltroDominios.setLayout(FiltroDominiosLayout);
+        FiltroDominiosLayout.setHorizontalGroup(
+            FiltroDominiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FiltroDominiosLayout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addGroup(FiltroDominiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FiltroDominiosLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(265, 265, 265))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FiltroDominiosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 646, Short.MAX_VALUE)
+        FiltroDominiosLayout.setVerticalGroup(
+            FiltroDominiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FiltroDominiosLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(FiltroDominiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("filtro", jPanel6);
+        jTabbedPane2.addTab("filtro", FiltroDominios);
 
         jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setLayout(null);
@@ -574,7 +613,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton3);
-        jButton3.setBounds(720, 180, 100, 30);
+        jButton3.setBounds(720, 180, 100, 26);
 
         jButton10.setBackground(new java.awt.Color(0, 153, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -586,7 +625,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton10);
-        jButton10.setBounds(720, 230, 100, 30);
+        jButton10.setBounds(720, 230, 100, 26);
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel17.setText("Administración de Departamentos.");
@@ -603,7 +642,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton11);
-        jButton11.setBounds(440, 420, 120, 30);
+        jButton11.setBounds(440, 420, 120, 26);
 
         jButton12.setBackground(new java.awt.Color(0, 153, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -615,7 +654,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton12);
-        jButton12.setBounds(250, 420, 120, 30);
+        jButton12.setBounds(250, 420, 120, 26);
 
         jPanel13.setBackground(Color.white);
         jPanel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -979,7 +1018,7 @@ public class Principal extends javax.swing.JFrame {
                             JLabel source = (JLabel) e.getSource();
                             System.out.println(source.getToolTipText());
                             jTabbedPane2.setSelectedIndex(5);
-                            GraficaBarras(Integer.parseInt(source.getToolTipText()));
+                            GraficaBarrasUsuario(Integer.parseInt(source.getToolTipText()));
                         }
                     };
                     VerReporte.addMouseListener(ml);
@@ -1033,11 +1072,22 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        TerminarCargar = false;
         jTabbedPane2.setSelectedIndex(3);
         Color azul = new Color(0, 153, 255);
         Color gris = new Color(44, 44, 44);
         jButton4.setBackground(azul);
-
+        jComboBox6.removeAllItems();
+        Comando = Funcion.Select(st, "SELECT * FROM areas;");
+        try {
+            while(Comando.next()){
+                jComboBox6.addItem(Comando.getObject("nombre_area"));
+            }
+            TerminarCargar = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PanelesDominios();
     }//GEN-LAST:event_jButton4ActionPerformed
 
 //***************Buton  nueva Factura**********************************//////////////
@@ -1409,7 +1459,16 @@ public class Principal extends javax.swing.JFrame {
                 null, options, options[0]);
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    public void GraficaBarras(final int idUsuario) {
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        // TODO add your handling code here:
+        if(TerminarCargar == true){
+            jPanel6.removeAll();
+            PanelesDominios();
+            jPanel6.repaint();
+        }
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    public void GraficaBarrasUsuario(final int idUsuario) {
         fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
             @Override
@@ -1468,6 +1527,114 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void PanelesDominios(){
+        final Color gris = new Color(220, 220, 220);
+        final Color naranja = new Color(248, 150, 59);
+        final Color rojo = new Color(221, 76, 76);
+        final Color azul = new Color(0, 153, 255);
+        int Altura = 60;
+        JLabel Titulo = new JLabel();
+        jPanel6.add(Titulo);
+        Titulo.setText("Dominio o Página Web");
+        Titulo.setFont(new Font("Verdana", Font.PLAIN, 18));
+        Titulo.setForeground(Color.black);
+        Titulo.setSize(220, 30);
+        Titulo.setLocation(60, 20);
+        JLabel Titulo2 = new JLabel();
+        jPanel6.add(Titulo2);
+        Titulo2.setText("Estado");
+        Titulo2.setFont(new Font("Verdana", Font.PLAIN, 18));
+        Titulo2.setForeground(Color.black);
+        Titulo2.setSize(70, 30);
+        Titulo2.setLocation(470, 20);
+        try {
+            //Consultamos todas las areas
+            Comando = Funcion.Select(st, "SELECT * FROM filtro_dominios WHERE area = '" + jComboBox6.getSelectedItem().toString() + "';");
+            while (Comando.next()) {
+                    //Creamos un panel con alineacion a la izquierda
+                    JLabel Dominio = new JLabel();
+                   jPanel6.add(Dominio);
+                if (!Comando.getString("dominio").equals("")) {
+                    Dominio.setText(Comando.getString("dominio"));
+                    Dominio.setFont(new Font("Verdana", Font.PLAIN, 15));
+                    Dominio.setForeground(Color.black);
+                    Dominio.setSize(296, 30);
+                    Dominio.setLocation(60, Altura);
+                    final JButton Estado = new JButton();
+                    jPanel6.add(Estado);
+                    Estado.setText(Comando.getString("nivel"));
+                    if (Estado.getText().equals("No Clasificado")) {
+                        Estado.setBackground(gris);
+                    } else if (Estado.getText().equals("Aceptable")) {
+                        Estado.setBackground(azul);
+                    } else if (Estado.getText().equals("Regular")) {
+                        Estado.setBackground(naranja);
+                    } else if (Estado.getText().equals("Inaceptable")) {
+                        Estado.setBackground(rojo);
+                    }
+                    Dominio.setForeground(Color.black);
+                    Estado.setSize(150, 30);
+                    Estado.setLocation(450, Altura);
+                    Estado.setName(Comando.getString("dominio"));
+                    MouseListener ml = new MouseListener() {
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                            //System.out.println("Released!");
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            //System.out.println("Pressed!");
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            //System.out.println("Exited!");
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            //System.out.println("Entered!");
+                        }
+
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            String[] Estados = {"Aceptable", "Regular", "Inaceptable"};
+                            if (Estado.getText().equals("No Clasificado")) {
+                                Estado.setText(Estados[0]);
+                                Estado.setBackground(azul);
+                            } else if (Estado.getText().equals("Aceptable")) {
+                                Estado.setText(Estados[1]);
+                                Estado.setBackground(naranja);
+                            } else if (Estado.getText().equals("Regular")) {
+                                Estado.setText(Estados[2]);
+                                Estado.setBackground(rojo);
+                            } else if (Estado.getText().equals("Inaceptable")) {
+                                Estado.setText(Estados[0]);
+                                Estado.setBackground(azul);
+                            }
+                            JButton source = (JButton) e.getSource();
+                            String Query = "UPDATE filtro_dominios SET nivel = '" + Estado.getText() + "' WHERE dominio = '" + source.getName() + "' AND area = '" + jComboBox6.getSelectedItem().toString() + "';";
+                            Funcion.Update(st, Query);
+                        }
+                    };
+                    Estado.addMouseListener(ml);
+                    //Tamaño del panel
+                    // La posicion y del panel ira incrementando para que no se encimen
+                    Altura = Altura + 40;
+                    //i++;
+                }
+            }
+            //Funcion.CerrarConsulta(Comando);
+            //Comandos = Funcion.Select(st, "SELECT * FROM cliente;");
+            //Ciclo para crear un panel para cada uno
+        } catch (Exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Dependiendo de cuantos clientes se agregaron, se ajusta el tamaño del panel principal para que el scroll llegue hasta ahi
+        jPanel6.setPreferredSize(new Dimension(jPanel6.getWidth(), Altura + 40));
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
@@ -1508,6 +1675,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel FiltroDominios;
     private javax.swing.JPanel ReporteUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -1527,6 +1695,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1547,6 +1716,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1568,6 +1738,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField10;
